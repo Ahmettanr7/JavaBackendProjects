@@ -27,13 +27,12 @@ public class EmployerManager implements EmployerService{
 
 	@Override
 	public Employer getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.employerDao.getById(id);
 	}
 
 	@Override
 	public void add(Employer employer) {
-		// TODO Auto-generated method stub
+		this.employerDao.save(employer);
 		
 	}
 
@@ -45,7 +44,7 @@ public class EmployerManager implements EmployerService{
 
 	@Override
 	public void delete(Employer employer) {
-		// TODO Auto-generated method stub
+		this.employerDao.delete(employer);
 		
 	}
 	

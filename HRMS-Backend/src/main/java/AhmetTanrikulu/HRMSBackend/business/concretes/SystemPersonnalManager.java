@@ -27,13 +27,12 @@ public class SystemPersonnalManager implements SystemPersonnalService{
 
 	@Override
 	public SystemPersonnal getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.systemPersonalDao.getById(id);
 	}
 
 	@Override
 	public void add(SystemPersonnal systemPersonnal) {
-		// TODO Auto-generated method stub
+		this.systemPersonalDao.save(systemPersonnal);
 		
 	}
 
@@ -45,7 +44,7 @@ public class SystemPersonnalManager implements SystemPersonnalService{
 
 	@Override
 	public void delete(SystemPersonnal systemPersonnal) {
-		// TODO Auto-generated method stub
+		this.systemPersonalDao.delete(systemPersonnal);
 		
 	}
 

@@ -26,13 +26,12 @@ public class PositionManager implements PositionService{
 
 	@Override
 	public Position getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.positionDao.getById(id);
 	}
 
 	@Override
 	public void add(Position position) {
-		// TODO Auto-generated method stub
+		this.positionDao.save(position);
 		
 	}
 
@@ -44,7 +43,7 @@ public class PositionManager implements PositionService{
 
 	@Override
 	public void delete(Position position) {
-		// TODO Auto-generated method stub
+		this.positionDao.delete(position);
 		
 	}
 
