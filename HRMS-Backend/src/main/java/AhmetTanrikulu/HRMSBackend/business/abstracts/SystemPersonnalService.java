@@ -1,15 +1,18 @@
 package AhmetTanrikulu.HRMSBackend.business.abstracts;
 
 import java.util.List;
+import java.util.Optional;
 
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.SystemPersonnal;
 
 
 public interface SystemPersonnalService {
-	List<SystemPersonnal> getAll();
-	SystemPersonnal getById(int id);
-	void add(SystemPersonnal systemPersonnal);
-	void update(SystemPersonnal systemPersonnal);
-	void delete(SystemPersonnal systemPersonnal);
+	DataResult<List<SystemPersonnal>> getAll();
+	DataResult <Optional<SystemPersonnal>> getByUserId(int userId);
+	Result add(SystemPersonnal systemPersonnal);
+	Result update(SystemPersonnal systemPersonnal);
+	Result delete(SystemPersonnal systemPersonnal);
 
 }

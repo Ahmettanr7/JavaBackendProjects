@@ -1,4 +1,4 @@
-package kodlamaio.northwind.core.utilities.results;
+package AhmetTanrikulu.HRMSBackend.core.utilities.results;
 
 public class SuccessResult extends Result{
 	public SuccessResult() {

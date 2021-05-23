@@ -1,4 +1,4 @@
-package kodlamaio.northwind.core.utilities.results;
+package AhmetTanrikulu.HRMSBackend.core.utilities.results;
 
 public class Result {
 	private boolean success;
@@ -21,3 +21,4 @@ public class Result {
 		return this.message;
 	}
 }
+

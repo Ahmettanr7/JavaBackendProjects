@@ -7,8 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
 @Entity
 @Table(name="system_personnals")
+@AllArgsConstructor
+@NoArgsConstructor
 public class SystemPersonnal{
 	
 	@Id
@@ -29,66 +36,4 @@ public class SystemPersonnal{
 	
 	@Column(name="position_id")
 	private int positionId;
-	
-	public SystemPersonnal() {}
-
-	public SystemPersonnal(int userId, String firstName, String lastName,
-			Date dateOfStart, String phoneNumber, int positionId) {
-		super();
-		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateOfStart = dateOfStart;
-		this.phoneNumber = phoneNumber;
-		this.positionId = positionId;
 	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Date getDateOfStart() {
-		return dateOfStart;
-	}
-
-	public void setDateOfStart(Date dateOfStart) {
-		this.dateOfStart = dateOfStart;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public int getPositionId() {
-		return positionId;
-	}
-
-	public void setPositionId(int positionId) {
-		this.positionId = positionId;
-	}
-	
-}

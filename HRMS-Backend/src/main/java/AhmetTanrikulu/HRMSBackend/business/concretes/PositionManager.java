@@ -1,11 +1,16 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.PositionService;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessDataResult;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessResult;
 import AhmetTanrikulu.HRMSBackend.dataAccess.abstracts.PositionDao;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Position;
 
@@ -20,30 +25,35 @@ public class PositionManager implements PositionService{
 	}
 
 	@Override
-	public List<Position> getAll() {
-		return this.positionDao.findAll();
+	public DataResult<List<Position>> getAll() {
+		return new SuccessDataResult<List<Position>>(this.positionDao.findAll(),"Veriler listelendi");
+				
 	}
 
 	@Override
-	public Position getById(int id) {
-		return this.positionDao.getById(id);
+	public DataResult <Optional<Position>> getById(int id) {
+		return new SuccessDataResult <Optional<Position>>(this.positionDao.findById(id),"Belirtilen id numarasına göre getirildi");
+				
 	}
 
 	@Override
-	public void add(Position position) {
+	public Result add(Position position) {
 		this.positionDao.save(position);
+		return new SuccessResult("Pozisyon eklendi");
 		
 	}
 
 	@Override
-	public void update(Position position) {
-		// TODO Auto-generated method stub
+	public Result update(Position position) {
+		this.positionDao.save(position);
+		return new SuccessResult("Pozisyon eklendi");
 		
 	}
 
 	@Override
-	public void delete(Position position) {
+	public Result delete(Position position) {
 		this.positionDao.delete(position);
+		return new SuccessResult("Pozisyon silindi");
 		
 	}
 

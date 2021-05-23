@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.PositionService;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Position;
 
 @RestController
@@ -23,8 +28,17 @@ public class PositionsController {
 	}
 	
 	@GetMapping("/getall")
-	public List<Position> getAll(){
+	public DataResult<List<Position>> getAll(){
 		return this.positionService.getAll();
+	}
+	
+	@PostMapping("/add")
+	public Result add(@RequestBody Position position) {
+		return this.positionService.add(position);
+	}
+	@GetMapping("/{id}")
+	public Result getById(@PathVariable int id){
+		return this.positionService.getById(id);
 	}
 	
 

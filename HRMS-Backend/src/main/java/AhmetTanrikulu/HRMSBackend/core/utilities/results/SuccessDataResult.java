@@ -1,4 +1,4 @@
-package kodlamaio.northwind.core.utilities.results;
+package AhmetTanrikulu.HRMSBackend.core.utilities.results;
 
 public class SuccessDataResult<T> extends DataResult<T>{
 
@@ -17,3 +17,4 @@ public class SuccessDataResult<T> extends DataResult<T>{
 		super(null, true);
 	}
 }
+
