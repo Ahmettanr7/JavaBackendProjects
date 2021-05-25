@@ -32,6 +32,6 @@
  
 #İş verenler listelenebilir. (Sadece tüm liste)
 
-#İş arayanlar listelenebilir. (Sadece tüm liste)
+#İş arayanlar listelenebilir. (Sadece tüm liste )
 
 #İş pozisyonları listelenebilir. (Sadece tüm liste)
