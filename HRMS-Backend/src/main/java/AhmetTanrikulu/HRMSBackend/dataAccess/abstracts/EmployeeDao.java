@@ -1,9 +1,13 @@
 package AhmetTanrikulu.HRMSBackend.dataAccess.abstracts;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Employee;
+import AhmetTanrikulu.HRMSBackend.entities.concretes.User;
 
 public interface EmployeeDao extends JpaRepository<Employee, Integer> {
-
+	List<Employee> findAllByNationalityId(String nationalityId);
+	List<User> findAllByEmail(String email);
 }

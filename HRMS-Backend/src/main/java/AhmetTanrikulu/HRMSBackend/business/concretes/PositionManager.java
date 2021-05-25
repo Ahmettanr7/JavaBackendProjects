@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.PositionService;
+import AhmetTanrikulu.HRMSBackend.core.business.BusinessRules;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.ErrorResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessDataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessResult;
@@ -38,6 +40,13 @@ public class PositionManager implements PositionService{
 
 	@Override
 	public Result add(Position position) {
+		var result = BusinessRules.run(
+				checkIfInfoIsNull(position),
+				CheckIfThePositionName(position)
+				);
+		if (result != null) {
+			return result;
+		}
 		this.positionDao.save(position);
 		return new SuccessResult("Pozisyon eklendi");
 		
@@ -55,6 +64,21 @@ public class PositionManager implements PositionService{
 		this.positionDao.delete(position);
 		return new SuccessResult("Pozisyon silindi");
 		
+	}
+	
+	private Result checkIfInfoIsNull(Position position) {
+		if (position.getPositionName().isBlank()) {
+			return new ErrorResult("Lütfen tüm alanları doldurun");
+		} else {
+			return new SuccessResult();
+		}
+	}
+	
+	private Result CheckIfThePositionName(Position position) {
+		if(positionDao.findAllByPositionName(position.getPositionName()).stream().count() != 0) {
+			return new ErrorResult("'" + position.getPositionName() + "'" +" Bu departman daha önce eklenmiş.");
+		}
+		return new SuccessResult();
 	}
 
 }

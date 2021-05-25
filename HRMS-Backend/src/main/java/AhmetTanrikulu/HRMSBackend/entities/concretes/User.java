@@ -1,16 +1,25 @@
 package AhmetTanrikulu.HRMSBackend.entities.concretes;
 
-import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 @Data
 @Entity
 @Table(name="users")
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 	
 	@Id
@@ -18,9 +27,10 @@ public class User {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="email")
+	@Column(name="email", nullable = false, unique = true)
 	private String email;
 	
-	@Column(name="password")
-	private String password;	
+	@Column(name="password", nullable = false)
+	private String password;
+	
 }

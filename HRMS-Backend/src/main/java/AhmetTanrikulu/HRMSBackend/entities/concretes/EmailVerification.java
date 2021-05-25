@@ -12,16 +12,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-@Table(name="positions")
-@AllArgsConstructor
 @NoArgsConstructor
-public class Position {
+@AllArgsConstructor
+@Entity
+@Table(name="verification_codes")
+public class EmailVerification {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
+	@Column(name="code")
+	private String code;
+	@Column(name="is_verified")
+	private boolean isVerified;
 	
-	@Column(name="position_name", nullable = false)
-	private String positionName;
-	}
+	@Column(name="user_id")
+	private int userId;
+	
+}

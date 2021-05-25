@@ -11,36 +11,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import AhmetTanrikulu.HRMSBackend.business.abstracts.SystemPersonnalService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.SystemEmployeeService;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
-import AhmetTanrikulu.HRMSBackend.entities.concretes.SystemPersonnal;
+import AhmetTanrikulu.HRMSBackend.entities.concretes.SystemEmployee;
 
 @RestController
-@RequestMapping("/api/systempersonnals")
-public class SystemPersonnalsController {
+@RequestMapping("/api/systememployees")
+public class SystemEmployeesController {
 	
-	private SystemPersonnalService systemPersonnalService;
+	private SystemEmployeeService systemEmployeeService;
 
 	@Autowired
-	public SystemPersonnalsController(SystemPersonnalService systemPersonnalService) {
+	public SystemEmployeesController(SystemEmployeeService systemEmployeeService) {
 		super();
-		this.systemPersonnalService = systemPersonnalService;
+		this.systemEmployeeService = systemEmployeeService;
 	}
 	
 	@GetMapping("/getall")
-	public DataResult<List<SystemPersonnal>> getAll(){
-		return this.systemPersonnalService.getAll();
+	public DataResult<List<SystemEmployee>> getAll(){
+		return this.systemEmployeeService.getAll();
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestBody SystemPersonnal systemPersonnal) {
-		return this.systemPersonnalService.add(systemPersonnal);
+	public Result add(@RequestBody SystemEmployee systemPersonnal) {
+		return this.systemEmployeeService.add(systemPersonnal);
 	}
 	
 	@GetMapping("/{id}")
 	public Result getByUserId(@PathVariable int id){
-		return this.systemPersonnalService.getByUserId(id);
+		return this.systemEmployeeService.getByUserId(id);
 	}
 	
 

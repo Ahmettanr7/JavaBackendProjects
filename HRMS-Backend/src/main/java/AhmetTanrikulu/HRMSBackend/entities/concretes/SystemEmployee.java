@@ -4,36 +4,36 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+
+@EqualsAndHashCode(callSuper=false)
 @Data
 @Entity
-@Table(name="system_personnals")
+@Table(name="system_employee")
 @AllArgsConstructor
 @NoArgsConstructor
-public class SystemPersonnal{
+public class SystemEmployee extends User{
 	
-	@Id
-	@Column(name="user_id")
-	private int userId;
-	
-	@Column(name="first_name")
+	@Column(name="first_name", nullable = false)
 	private String firstName;
 	
-	@Column(name="last_name")
+	@Column(name="last_name", nullable = false)
 	private String lastName;
 	
-	@Column(name="date_of_start")
+	@Column(name="date_of_start", nullable = false)
 	private Date dateOfStart;
 	
-	@Column(name="phone_number")
+	@Column(name="phone_number", nullable = false)
 	private String phoneNumber;
 	
-	@Column(name="position_id")
+	@Column(name="position_id", nullable = false)
 	private int positionId;
-	}
+}
+
+
