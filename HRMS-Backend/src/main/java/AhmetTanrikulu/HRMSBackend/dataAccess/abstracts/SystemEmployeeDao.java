@@ -8,6 +8,7 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.SystemEmployee;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.User;
 
 public interface SystemEmployeeDao extends JpaRepository<SystemEmployee, Integer> {
+	
 	List<User> findAllByEmail(String email);
-
+	
 }

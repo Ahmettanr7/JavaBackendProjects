@@ -66,10 +66,10 @@ public class EmployerManager implements EmployerService{
 			return result;
 		}
 		User savedUser = this.userService.add(employer);
-		this.emailVerificationService.generateCode(new EmailVerification(),savedUser.getId());
+		this.emailVerificationService.generateCode(new EmailVerification(),savedUser.getUserId());
 		this.employerDao.save(employer);
 		return new SuccessResult("İş veren olarak kayıt olundu ,lütfen hesabınızı email adresinize"
-				+ " gönderdiğimiz kod ile doğrulayınız ID numaranız:"+employer.getId());
+				+ " gönderdiğimiz kod ile doğrulayınız ID numaranız:"+employer.getUserId());
 		
 	}
 

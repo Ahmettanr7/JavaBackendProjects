@@ -66,7 +66,7 @@ public class EmployeeManager implements EmployeeService{
 		}
 		User savedUser = this.userService.add(employee);
 		this.employeeDao.save(employee);
-		this.emailVerificationService.generateCode(new EmailVerification(),savedUser.getId());
+		this.emailVerificationService.generateCode(new EmailVerification(),savedUser.getUserId());
 		return new SuccessResult("İş arayan olarak kayıt olundu ,lütfen hesabınızı email adresinize"
 				+ " gönderdiğimiz kod ile doğrulayınız");
 		

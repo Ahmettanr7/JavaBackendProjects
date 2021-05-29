@@ -1,6 +1,7 @@
 package AhmetTanrikulu.HRMSBackend.entities.concretes;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,13 +28,11 @@ public class SystemEmployee extends User{
 	private String lastName;
 	
 	@Column(name="date_of_start", nullable = false)
-	private Date dateOfStart;
+	private LocalDate dateOfStart;
 	
 	@Column(name="phone_number", nullable = false)
 	private String phoneNumber;
 	
-	@Column(name="position_id", nullable = false)
-	private int positionId;
 }
 
 
