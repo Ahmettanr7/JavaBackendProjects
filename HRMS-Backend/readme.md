@@ -30,11 +30,11 @@
   
     * Bu pozisyonlar tekrar edemez. Kullanıcı uyarılır.
  
- # İş verenler listelenebilir. (Sadece tüm liste)
+ #İş verenler listelenebilir.
 
- # İş arayanlar listelenebilir. (Sadece tüm liste )
+ #İş arayanlar listelenebilir.
 
- # İş pozisyonları listelenebilir. (Sadece tüm liste)
+ #İş pozisyonları listelenebilir.
  
  
  # İş verenler sisteme iş ilanı ekleyebilir.
