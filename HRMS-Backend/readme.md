@@ -30,8 +30,19 @@
   
     * Bu pozisyonlar tekrar edemez. Kullanıcı uyarılır.
  
-#İş verenler listelenebilir. (Sadece tüm liste)
+ # İş verenler listelenebilir. (Sadece tüm liste)
 
-#İş arayanlar listelenebilir. (Sadece tüm liste )
+ # İş arayanlar listelenebilir. (Sadece tüm liste )
 
-#İş pozisyonları listelenebilir. (Sadece tüm liste)
+ # İş pozisyonları listelenebilir. (Sadece tüm liste)
+ 
+ 
+ # İş verenler sisteme iş ilanı ekleyebilir.
+ 
+ # Sistemdeki tüm aktif iş ilanları listelenebilir.
+ 
+ # Sistemdeki tüm aktif iş ilanları tarihe göre listelenebilir.
+ 
+ # Sistemde bir firmaya ait tüm aktif iş ilanları listelenebilir.
+ 
+ # İş verenler sistemdeki bir ilanı kapatabilir.
