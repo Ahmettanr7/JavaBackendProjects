@@ -28,7 +28,7 @@
 
   Kabul kriteri:
   
-    * Bu pozisyonlar tekrar edemez. Kullanıcı uyarılır.
+   * Bu pozisyonlar tekrar edemez. Kullanıcı uyarılır.
  
 #İş verenler listelenebilir. (Sadece tüm liste)
 
