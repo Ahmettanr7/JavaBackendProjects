@@ -1,8 +1,6 @@
-
-package AhmetTanrikulu.HRMSBackend.api.controllers;
+package kodlamaio.northwind.api.controllers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -21,42 +19,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import AhmetTanrikulu.HRMSBackend.business.abstracts.SystemEmployeeService;
-import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
-import AhmetTanrikulu.HRMSBackend.core.utilities.results.ErrorDataResult;
-import AhmetTanrikulu.HRMSBackend.entities.concretes.SystemEmployee;
+import kodlamaio.northwind.business.abstracts.UserService;
+import kodlamaio.northwind.core.entities.User;
+import kodlamaio.northwind.core.utilities.results.DataResult;
+import kodlamaio.northwind.core.utilities.results.ErrorDataResult;
 
 @RestController
-@RequestMapping("/api/systememployees/")
-public class SystemEmployeesController {
+@RequestMapping(value="/api/users/")
+public class UsersController {
 	
-	private SystemEmployeeService systemEmployeeService;
+	private UserService userService;
 
 	@Autowired
-	public SystemEmployeesController(SystemEmployeeService systemEmployeeService) {
+	public UsersController(UserService userService) {
 		super();
-		this.systemEmployeeService = systemEmployeeService;
+		this.userService = userService;
 	}
 	
-	@GetMapping("getall")
-	public DataResult<List<SystemEmployee>> getAll(){
-		return this.systemEmployeeService.getAll();
-	}
-	
-	@GetMapping("getByUserId")
-	public DataResult<SystemEmployee> getByUserId(@RequestParam int userId){
-		return this.systemEmployeeService.getByUserId(userId);
-	}
-	
-	@GetMapping("getByEmail")
-	public DataResult<SystemEmployee> getByEmail(@RequestParam String email){
-		return this.systemEmployeeService.getByEmail(email);
+	@GetMapping(value="getByEmail")
+	public DataResult<User> getByEmail(@RequestParam String email){
+		return this.userService.findByEmail(email);
 	}
 	
 	@PostMapping(value="add")
-	public ResponseEntity<?> add(@Valid @RequestBody SystemEmployee systemPersonnal) {
-		return ResponseEntity.ok(this.systemEmployeeService.add(systemPersonnal));
+	public ResponseEntity<?> add(@Valid @RequestBody User user) {
+		return ResponseEntity.ok(this.userService.add(user)) ;
 	}
+	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -69,7 +58,5 @@ public class SystemEmployeesController {
 		 ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
 		 return errors;
 	}
-	
 
 }
-

@@ -1,7 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,14 +47,8 @@ public class EmployeeManager implements EmployeeService{
 	}
 
 	@Override
-	public DataResult<Optional<Employee>> getByUserId(int id) {
-		return new SuccessDataResult <Optional<Employee>>(this.employeeDao.findById(id),"Belirtilen id numarasına göre getirildi");
-	}
-
-	@Override
 	public Result add(Employee employee) {
 		var result = BusinessRules.run(
-				checkIfInfoIsNull(employee),
 				CheckIfTheNationalityIdIsRegistered(employee),
 				CheckIfTheEmailIsRegistered(employee),
 				isRealEmail(employee),
@@ -84,15 +77,6 @@ public class EmployeeManager implements EmployeeService{
 		this.employeeDao.delete(employee);
 		return new SuccessResult("İşçi silindi");
 		
-	}
-	
-	private Result checkIfInfoIsNull(Employee employee) {
-		if (employee.getFirstName().isBlank() || employee.getLastName().isBlank()|| employee.getPhoneNumber().isBlank()||
-				employee.getNationalityId().isBlank() || employee.getBirthDate()==null)
-			{
-			return new ErrorResult("Lütfen tüm alanları doldurun");
-		}
-		return new SuccessResult();
 	}
 	
 	private Result CheckIfTheNationalityIdIsRegistered(Employee employee) {

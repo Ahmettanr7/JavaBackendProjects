@@ -56,7 +56,6 @@ public class EmployerManager implements EmployerService{
 	@Override
 	public Result add(Employer employer) {
 		var result = BusinessRules.run(
-				checkIfInfoIsNull(employer),
 				CheckIfTheEmailIsRegistered(employer),
 				isRealEmail(employer),
 				CheckIfTheTaxNumberIsRegistered(employer),
@@ -85,18 +84,6 @@ public class EmployerManager implements EmployerService{
 		this.employerDao.delete(employer);
 		return new SuccessResult("İşveren silindi");
 		
-	}
-	
-	private Result checkIfInfoIsNull(Employer employer) {
-		if  (
-			employer.getEmail().isBlank() || employer.getPassword().isBlank() ||employer.getCompanyName().isBlank()
-			|| employer.getPhoneNumber().isBlank()|| employer.getWebSite().isBlank()
-			)
-			{
-			return new ErrorResult("Lütfen tüm alanları doldurun");
-		}
-		return new SuccessResult();
-
 	}
 	
 	private Result CheckIfTheEmailIsRegistered(Employer employer) {

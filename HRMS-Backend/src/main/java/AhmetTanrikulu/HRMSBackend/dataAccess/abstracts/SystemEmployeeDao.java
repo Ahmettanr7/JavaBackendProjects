@@ -11,4 +11,8 @@ public interface SystemEmployeeDao extends JpaRepository<SystemEmployee, Integer
 	
 	List<User> findAllByEmail(String email);
 	
+	SystemEmployee getByUserId(int userId);
+	
+	SystemEmployee getByEmail(String email);
+	
 }

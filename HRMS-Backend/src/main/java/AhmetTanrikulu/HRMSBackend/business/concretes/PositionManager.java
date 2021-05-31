@@ -41,7 +41,6 @@ public class PositionManager implements PositionService{
 	@Override
 	public Result add(Position position) {
 		var result = BusinessRules.run(
-				checkIfInfoIsNull(position),
 				CheckIfThePositionName(position)
 				);
 		if (result != null) {
@@ -64,14 +63,6 @@ public class PositionManager implements PositionService{
 		this.positionDao.delete(position);
 		return new SuccessResult("Pozisyon silindi");
 		
-	}
-	
-	private Result checkIfInfoIsNull(Position position) {
-		if (position.getPositionName().isBlank()) {
-			return new ErrorResult("Lütfen tüm alanları doldurun");
-		} else {
-			return new SuccessResult();
-		}
 	}
 	
 	private Result CheckIfThePositionName(Position position) {

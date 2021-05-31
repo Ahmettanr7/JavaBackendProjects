@@ -14,6 +14,7 @@ import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessDataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessResult;
 import AhmetTanrikulu.HRMSBackend.dataAccess.abstracts.JobAdvertDao;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.JobAdvert;
+import AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto;
 
 @Service
 public class JobAdvertManager implements JobAdvertService{
@@ -29,7 +30,7 @@ public class JobAdvertManager implements JobAdvertService{
 	@Override
 	public Result add(JobAdvert jobAdvert) {
 		var result = BusinessRules.run(
-				checkIfInfoIsNull(jobAdvert)
+				CheckIfRepetition(jobAdvert)
 				);
 		if (result != null) {
 			return result;
@@ -41,6 +42,9 @@ public class JobAdvertManager implements JobAdvertService{
 	
 	@Override
 	public Result closeAdvert(JobAdvert jobAdvert) {
+		if(jobAdvert.isActivityStatus()==false) {
+			return new ErrorResult("İlan zaten yayında değil");
+		}
 		jobAdvert.setActivityStatus(false);
 		this.jobAdvertDao.save(jobAdvert);
 		return new SuccessResult("İlan yayından kaldırıldı");
@@ -53,32 +57,50 @@ public class JobAdvertManager implements JobAdvertService{
 	}
 	
 	@Override
-	public DataResult<List<JobAdvert>> getByActivityStatusIsTrue() {
+	public DataResult<List<JobAdvert>> getByActiviteAdverts() {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsTrue(),"İlanlar tablosunun aktif bütün ilanları listelendi");
 	}
 	
 	@Override
-	public DataResult<List<JobAdvert>> getByActivityStatusIsTrueOrderByAdvertDateAsc() {
+	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateAsc() {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsTrueOrderByAdvertDateAsc(),"İlanlar tablosunun aktif bütün ilanları tarihi artan sırayla listelendi");
 	}
 
 	@Override
-	public DataResult<List<JobAdvert>> getByActivityStatusIsTrueOrderByAdvertDateDesc() {
+	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDesc() {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsTrueOrderByAdvertDateDesc(),"İlanlar tablosunun aktif bütün ilanları tarihi azalan sırayla listelendi");
 	}
 	
 	@Override
-	public DataResult<List<JobAdvert>> getByEmployer_UserId(int userId) {
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByEmployer_UserId(userId),"Seçtiğiniz firmaya ait ilanlar listelendi");
+	public DataResult<List<JobAdvert>> getByUserIdAndSortByAdvertDateDesc(int userId) {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByEmployer_UserIdOrderByAdvertDateDesc(userId),"Seçtiğiniz firmaya ait ilanlar listelendi");
 	}
 	
-	private Result checkIfInfoIsNull(JobAdvert jobAdvert) {
-		if (jobAdvert.getDescription().isBlank()) {
-			return new ErrorResult("Lütfen tüm alanları doldurun");
-		} else {
-			return new SuccessResult();
-		}
+	@Override
+	public DataResult<List<JobAdvert>> getByCompanyNameAndSortByAdvertDateDesc(String companyName) {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByEmployer_CompanyNameOrderByAdvertDateDesc(companyName),companyName + " Firmasının ilanları listelendi");
 	}
+	
+	@Override
+	public DataResult<List<JobAdvertDto>> getJobAdvertDto() {
+		return new SuccessDataResult<List<JobAdvertDto>>(this.jobAdvertDao.getJobAdvertDto());
+	}
+	
+	@Override
+	public DataResult<List<JobAdvertDto>> getJobAdvertDtoActiveAdvertsByDate() {
+		return new SuccessDataResult<List<JobAdvertDto>>(this.jobAdvertDao.getJobAdvertDtoActiveAdvertsByDate());
+	}
+	
+	private Result CheckIfRepetition(JobAdvert jobAdvert) {
+		if(jobAdvertDao.getAllByActivityStatusIsTrueAndPosition_PositionId(jobAdvert.getPosition().getPositionId()).stream().count() != 0) {
+			return new ErrorResult("Bu pozisyonunda aktif iş ilanınız bulunmaktadır.");
+		}
+		return new SuccessResult();
+	}
+
+	
+
+	
 
 	
 

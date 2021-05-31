@@ -1,42 +1,40 @@
-package AhmetTanrikulu.HRMSBackend.entities.concretes;
-
-import java.util.List;
+package kodlamaio.northwind.core.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@Table(name="positions")
+@Data
+@Table(name="users")
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdverts"})
-public class Position {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="position_id")
-	private int positionId;
+	@Column(name="user_id")
+	private int userId;
 	
-	@Column(name="position_name")
-	@NotNull
+	@Column(name="email")
+	@Email
 	@NotBlank
-	private String positionName;
-	
-	@OneToMany(mappedBy = "position")
-	private List<JobAdvert> jobAdverts;
+	@NotNull
+	private String email;
 	
 	
-	}
+	@Column(name="password")
+	@NotBlank
+	@NotNull
+	private String password;
+
+}

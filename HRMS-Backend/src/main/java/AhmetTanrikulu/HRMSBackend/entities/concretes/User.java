@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -27,10 +30,15 @@ public class User {
 	@Column(name="user_id")
 	private int userId;
 	
-	@Column(name="email", nullable = false, unique = true)
+	@Column(name="email")
+	@NotNull
+	@NotBlank
+	@Email
 	private String email;
 	
-	@Column(name="password", nullable = false)
+	@Column(name="password")
+	@NotNull
+	@NotBlank
 	private String password;
 	
 }

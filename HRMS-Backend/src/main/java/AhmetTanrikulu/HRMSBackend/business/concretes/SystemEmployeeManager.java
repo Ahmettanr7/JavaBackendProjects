@@ -1,10 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,18 +32,22 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 	public DataResult<List<SystemEmployee>> getAll() {
 		return new SuccessDataResult<List<SystemEmployee>>(this.systemEmployeeDao.findAll(),"Veriler listelendi");
 	}
+	
+	@Override
+	public DataResult<SystemEmployee> getByUserId(int userId) {
+		return new SuccessDataResult<SystemEmployee>(this.systemEmployeeDao.getByUserId(userId));
+	}
 
 	@Override
-	public DataResult<Optional<SystemEmployee>> getByUserId(int userId) {
-		return new SuccessDataResult <Optional<SystemEmployee>>(this.systemEmployeeDao.findById(userId),"Belirtilen id numarasına göre getirildi");
+	public DataResult<SystemEmployee> getByEmail(String email) {
+		return new SuccessDataResult<SystemEmployee>(this.systemEmployeeDao.getByEmail(email));
 	}
 
 	@Override
 	public Result add(SystemEmployee systemEmployee) {
 		var result = BusinessRules.run(
-				checkIfInfoIsNull(systemEmployee),
-				CheckIfTheEmailIsRegistered(systemEmployee),
-				isRealEmail(systemEmployee)
+				CheckIfTheEmailIsRegistered(systemEmployee)
+				
 				);
 		if (result != null) {
 			return result;
@@ -71,32 +71,14 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 		
 	}
 	
-	private Result checkIfInfoIsNull(SystemEmployee systemEmployee) {
-		if (systemEmployee.getEmail().isBlank() ||systemEmployee.getPassword().isBlank() ||
-			systemEmployee.getFirstName().isBlank() || systemEmployee.getLastName().isBlank() ||
-			systemEmployee.getPhoneNumber().isBlank() || systemEmployee.getPhoneNumber().isBlank()) {
-			return new ErrorResult("Lütfen tüm alanları doldurun");
-		} else {
-			return new SuccessResult();
-		}
-	}
-	
 	private Result CheckIfTheEmailIsRegistered(SystemEmployee systemEmployee) {
 		if(systemEmployeeDao.findAllByEmail(systemEmployee.getEmail()).stream().count() != 0) {
-			return new ErrorResult("'" + systemEmployee.getEmail() + "'" +" adresiyle daha önce hesap açılmış");
+			return new ErrorResult("'" + systemEmployee.getEmail() + "'" +" adresiyle daha önce hesap açılmış. Lütfen giriş yapınız");
 		}
 		return new SuccessResult();
 	}
+
 	
-	private Result isRealEmail(SystemEmployee systemEmployee) {
-		 String regex = "^(.+)@(.+)$";
-	     Pattern pattern = Pattern.compile(regex);
-	     Matcher matcher = pattern.matcher(systemEmployee.getEmail());
-	     if(!matcher.matches()) {
-	    	 return new ErrorResult("Hatalı Email adresi girdiniz");
-	     }
-	     return new SuccessResult();
-	     }
 
 	
 

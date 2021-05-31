@@ -8,6 +8,8 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.Employee;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.User;
 
 public interface EmployeeDao extends JpaRepository<Employee, Integer> {
-	List<Employee> findAllByNationalityId(String nationalityId);
 	List<User> findAllByEmail(String email);
+	
+	List<Employee> findAllByNationalityId(String nationalityId);
+	
 }
