@@ -13,41 +13,43 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import AhmetTanrikulu.HRMSBackend.business.abstracts.PositionService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.EducationService;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.ErrorDataResult;
-import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
-import AhmetTanrikulu.HRMSBackend.entities.concretes.Position;
+import AhmetTanrikulu.HRMSBackend.entities.concretes.Education;
 
 @RestController
-@RequestMapping("/api/positions/")
-public class PositionsController {
+@RequestMapping("/api/educations/")
+public class EducationsController {
 	
-	private PositionService positionService;
+	private EducationService educationService;
 
 	@Autowired
-	public PositionsController(PositionService positionService) {
+	public EducationsController(EducationService educationService) {
 		super();
-		this.positionService = positionService;
+		this.educationService = educationService;
 	}
 	
 	@GetMapping("getall")
-	public DataResult<List<Position>> getAll(){
-		return this.positionService.getAll();
+	public DataResult<List<Education>> getAll() {
+		return this.educationService.getAll();
+	}
+	
+	@GetMapping("getbyuserid")
+	public DataResult<List<Education>> getByUserId(int userId) {
+		return this.educationService.getAllByUserIdOrderByGraduationDateDesc(userId);
 	}
 	
 	@PostMapping("add")
-	public ResponseEntity<?> add(@Valid @RequestBody Position position) {
-		return ResponseEntity.ok(this.positionService.add(position));
+	public ResponseEntity<?> add(@Valid @RequestBody Education education) {
+		return ResponseEntity.ok(this.educationService.add(education));
 	}
-	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -60,10 +62,6 @@ public class PositionsController {
 		 ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
 		 return errors;
 	}
-	@GetMapping("{id}")
-	public Result getById(@PathVariable int id){
-		return this.positionService.getById(id);
-	}
-	
 
 }
+

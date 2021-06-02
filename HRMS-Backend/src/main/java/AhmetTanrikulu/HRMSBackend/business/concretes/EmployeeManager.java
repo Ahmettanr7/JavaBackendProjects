@@ -7,8 +7,13 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import AhmetTanrikulu.HRMSBackend.business.abstracts.AbilityService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.EducationService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.EmailVerificationService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.EmployeeService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.ExperienceService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.LanguageService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.SingleInformationService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.UserService;
 import AhmetTanrikulu.HRMSBackend.core.business.BusinessRules;
 import AhmetTanrikulu.HRMSBackend.core.business.Validation.NationalityIdValidation;
@@ -21,6 +26,7 @@ import AhmetTanrikulu.HRMSBackend.dataAccess.abstracts.EmployeeDao;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.EmailVerification;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Employee;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.User;
+import AhmetTanrikulu.HRMSBackend.entities.dtos.CurriculumVitaeDto;
 
 @Service
 public class EmployeeManager implements EmployeeService{
@@ -28,16 +34,32 @@ public class EmployeeManager implements EmployeeService{
 	private EmployeeDao employeeDao;
 	private UserService userService;
 	private EmailVerificationService emailVerificationService;
+	private AbilityService abilityService;
+	private SingleInformationService singleInformationService;
+	private EducationService educationService;
+	private ExperienceService experienceService;
+	private LanguageService LanguageService;
 
 	@Autowired
 	public EmployeeManager(
 			EmployeeDao employeeDao,
 			UserService userService, 
-			EmailVerificationService emailVerificationService) {
+			EmailVerificationService emailVerificationService,
+			AbilityService abilityService,
+			SingleInformationService singleInformationService,
+			EducationService educationService,
+			ExperienceService experienceService,
+			LanguageService languageService
+			) {
 		super();
 		this.employeeDao = employeeDao;
 		this.userService = userService;
 		this.emailVerificationService = emailVerificationService; 
+		this.abilityService = abilityService;
+		this.singleInformationService = singleInformationService;
+		this.educationService = educationService;
+		this.experienceService = experienceService;
+		this.LanguageService = languageService;
 	}
 
 	@Override
@@ -108,6 +130,20 @@ public class EmployeeManager implements EmployeeService{
 			return new ErrorResult("Kimlik doğrulanamadı");
 		}
 		return new SuccessResult();
+	}
+
+	@Override
+	public DataResult<CurriculumVitaeDto> getCurriculumVitaeByUserId(int userId) {
+		CurriculumVitaeDto cv = new CurriculumVitaeDto();
+
+		cv.educations = this.educationService.getAllByUserIdOrderByGraduationDateDesc(userId).getData();
+		cv.experiences = this.experienceService.getAllByUserIdOrderByQuitDate(userId).getData();
+		cv.abilities = this.abilityService.getAllByUserId(userId).getData();
+		cv.languages = this.LanguageService.getAllByUserId(userId).getData();
+		cv.singleInformation = this.singleInformationService.getByUserId(userId).getData();
+		
+		return new SuccessDataResult<CurriculumVitaeDto>(cv);
+		
 	}
 
 }

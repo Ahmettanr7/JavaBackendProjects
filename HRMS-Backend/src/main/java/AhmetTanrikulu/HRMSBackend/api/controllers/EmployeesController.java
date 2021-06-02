@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +24,7 @@ import AhmetTanrikulu.HRMSBackend.business.abstracts.EmployeeService;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.ErrorDataResult;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Employee;
+import AhmetTanrikulu.HRMSBackend.entities.dtos.CurriculumVitaeDto;
 
 @RestController
 @RequestMapping("/api/employees/")
@@ -39,8 +43,13 @@ public class EmployeesController {
 		return this.employeeService.getAll();
 	}
 	
+	@GetMapping("getcvbyuserid")
+	public DataResult<CurriculumVitaeDto> getCvByUserId(@RequestParam int userId){
+		return this.employeeService.getCurriculumVitaeByUserId(userId);
+	}
+	
 	@PostMapping("add")
-	public ResponseEntity<?> add(@RequestBody Employee employee) {
+	public ResponseEntity<?> add(@Valid @RequestBody Employee employee) {
 		return ResponseEntity.ok(this.employeeService.add(employee));
 	}
 	

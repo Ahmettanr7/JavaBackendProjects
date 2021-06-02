@@ -65,13 +65,11 @@ public class JobAdvert {
 	@ManyToOne()
 	@JoinColumn(name = "position_id")
 	@NotNull
-	//@NotBlank
 	private Position position;
 	
 	@ManyToOne()
 	@JoinColumn(name = "city_id")
 	@NotNull
-	//@NotBlank
 	private City city;
 	
 	@ManyToOne()

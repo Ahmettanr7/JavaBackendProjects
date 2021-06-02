@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper=false)
 @Data
 @Entity
-@Table(name="system_employee")
+@Table(name="system_employees")
 @AllArgsConstructor
 @NoArgsConstructor
 public class SystemEmployee extends User{

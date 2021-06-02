@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -31,6 +32,7 @@ public class JobAdvertsController {
 	
 	private JobAdvertService jobAdvertService;
 
+	@Autowired
 	public JobAdvertsController(JobAdvertService jobAdvertService) {
 		super();
 		this.jobAdvertService = jobAdvertService;

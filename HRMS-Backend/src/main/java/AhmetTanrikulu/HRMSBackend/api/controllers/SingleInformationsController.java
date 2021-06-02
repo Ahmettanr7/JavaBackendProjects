@@ -13,41 +13,43 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import AhmetTanrikulu.HRMSBackend.business.abstracts.PositionService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.SingleInformationService;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.ErrorDataResult;
-import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
-import AhmetTanrikulu.HRMSBackend.entities.concretes.Position;
+import AhmetTanrikulu.HRMSBackend.entities.concretes.SingleInformation;
 
 @RestController
-@RequestMapping("/api/positions/")
-public class PositionsController {
+@RequestMapping("/api/cv/")
+public class SingleInformationsController {
 	
-	private PositionService positionService;
+	private SingleInformationService singleInformationService;
 
 	@Autowired
-	public PositionsController(PositionService positionService) {
+	public SingleInformationsController(SingleInformationService singleInformationService) {
 		super();
-		this.positionService = positionService;
+		this.singleInformationService = singleInformationService;
 	}
 	
 	@GetMapping("getall")
-	public DataResult<List<Position>> getAll(){
-		return this.positionService.getAll();
+	public DataResult<List<SingleInformation>> getAll(){
+		return this.singleInformationService.getAll();
+	}
+	
+	@GetMapping("getbyuserid")
+	public DataResult<SingleInformation> getByUserId(int userId){
+		return this.singleInformationService.getByUserId(userId);
 	}
 	
 	@PostMapping("add")
-	public ResponseEntity<?> add(@Valid @RequestBody Position position) {
-		return ResponseEntity.ok(this.positionService.add(position));
+	public ResponseEntity<?> add(@Valid @RequestBody SingleInformation singleInformation) {
+		return ResponseEntity.ok(this.singleInformationService.add(singleInformation));
 	}
-	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -60,10 +62,5 @@ public class PositionsController {
 		 ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
 		 return errors;
 	}
-	@GetMapping("{id}")
-	public Result getById(@PathVariable int id){
-		return this.positionService.getById(id);
-	}
-	
 
 }

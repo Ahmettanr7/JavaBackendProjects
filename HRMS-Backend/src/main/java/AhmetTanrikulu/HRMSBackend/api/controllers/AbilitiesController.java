@@ -13,39 +13,45 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import AhmetTanrikulu.HRMSBackend.business.abstracts.PositionService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.AbilityService;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.ErrorDataResult;
-import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
-import AhmetTanrikulu.HRMSBackend.entities.concretes.Position;
-
+import AhmetTanrikulu.HRMSBackend.entities.concretes.Ability;
 @RestController
-@RequestMapping("/api/positions/")
-public class PositionsController {
+@RequestMapping("/api/abilities/")
+public class AbilitiesController {
 	
-	private PositionService positionService;
+	private AbilityService abilityService;
 
 	@Autowired
-	public PositionsController(PositionService positionService) {
+	public AbilitiesController(AbilityService abilityService) {
 		super();
-		this.positionService = positionService;
+		this.abilityService = abilityService;
 	}
 	
 	@GetMapping("getall")
-	public DataResult<List<Position>> getAll(){
-		return this.positionService.getAll();
+	public DataResult<List<Ability>> getAll(){
+		return this.abilityService.getAll();
+	}
+	
+	@GetMapping("getbyuserid")
+	public DataResult<List<Ability>> getByUserId(int userId){
+		return this.abilityService.getAllByUserId(userId);
 	}
 	
 	@PostMapping("add")
-	public ResponseEntity<?> add(@Valid @RequestBody Position position) {
-		return ResponseEntity.ok(this.positionService.add(position));
+	public ResponseEntity<?> add(@Valid @RequestBody Ability ability) {
+		return ResponseEntity.ok(this.abilityService.add(ability));
+	}
+	@PostMapping("addList")
+	public ResponseEntity<?> add(@RequestBody List<Ability> ability) {
+		return ResponseEntity.ok(this.abilityService.add(ability));
 	}
 	
 	
@@ -60,10 +66,4 @@ public class PositionsController {
 		 ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
 		 return errors;
 	}
-	@GetMapping("{id}")
-	public Result getById(@PathVariable int id){
-		return this.positionService.getById(id);
-	}
-	
-
 }

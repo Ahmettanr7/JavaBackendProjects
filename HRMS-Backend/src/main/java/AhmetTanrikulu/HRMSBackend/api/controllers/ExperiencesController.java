@@ -13,41 +13,43 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import AhmetTanrikulu.HRMSBackend.business.abstracts.PositionService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.ExperienceService;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.ErrorDataResult;
-import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
-import AhmetTanrikulu.HRMSBackend.entities.concretes.Position;
+import AhmetTanrikulu.HRMSBackend.entities.concretes.Experience;
 
 @RestController
-@RequestMapping("/api/positions/")
-public class PositionsController {
+@RequestMapping("/api/experiences/")
+public class ExperiencesController {
 	
-	private PositionService positionService;
+	private ExperienceService experienceService;
 
 	@Autowired
-	public PositionsController(PositionService positionService) {
+	public ExperiencesController(ExperienceService experienceService) {
 		super();
-		this.positionService = positionService;
+		this.experienceService = experienceService;
 	}
 	
 	@GetMapping("getall")
-	public DataResult<List<Position>> getAll(){
-		return this.positionService.getAll();
+	public DataResult<List<Experience>> getAll() {
+		return this.experienceService.getAll();
+	}
+	
+	@GetMapping("getbyuserid")
+	public DataResult<List<Experience>> getByUserId(int userId) {
+		return this.experienceService.getAllByUserIdOrderByQuitDate(userId);
 	}
 	
 	@PostMapping("add")
-	public ResponseEntity<?> add(@Valid @RequestBody Position position) {
-		return ResponseEntity.ok(this.positionService.add(position));
+	public ResponseEntity<?> add(@Valid @RequestBody Experience experience) {
+		return ResponseEntity.ok(this.experienceService.add(experience));
 	}
-	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -60,10 +62,5 @@ public class PositionsController {
 		 ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
 		 return errors;
 	}
-	@GetMapping("{id}")
-	public Result getById(@PathVariable int id){
-		return this.positionService.getById(id);
-	}
-	
 
 }
