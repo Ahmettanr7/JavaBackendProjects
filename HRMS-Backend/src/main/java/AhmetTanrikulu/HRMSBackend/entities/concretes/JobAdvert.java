@@ -41,17 +41,13 @@ public class JobAdvert {
 	
 	@Column(name="quantity")
 	@NotNull
-	//@NotBlank
 	private int quantity;
-	
-	@Temporal(TemporalType.DATE)
+
 	@Column(name="advert_date")
 	private Date advertDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="due_date")
 	@NotNull
-	//@NotBlank
 	private Date dueDate;
 	
 	@Column(name="description")

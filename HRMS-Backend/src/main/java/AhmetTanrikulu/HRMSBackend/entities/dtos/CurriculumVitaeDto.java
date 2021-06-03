@@ -6,6 +6,7 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.Ability;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Education;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Employee;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Experience;
+import AhmetTanrikulu.HRMSBackend.entities.concretes.Image;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Language;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.SingleInformation;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,8 @@ public class CurriculumVitaeDto {
 	public List<Language> languages;
 	
 	public SingleInformation singleInformation;
+	
+	public List<Image> images;
 
 	
 

@@ -10,7 +10,7 @@ public class FakeMernis {
 	     Pattern pattern = Pattern.compile(regex);
 	     Matcher matcher = pattern.matcher(nationalityId);
 	     
-		if(nationalityId.length() > 11) {
+		if(nationalityId.length() > 11 || nationalityId.length() < 11) {
 			return false;
 		}
 		

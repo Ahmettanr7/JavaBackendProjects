@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +19,6 @@ import javax.validation.constraints.NotNull;
 public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     
@@ -33,4 +34,7 @@ public class Image {
 	
 	@Column(name="image_id")
 	private String imageId;
+	
+	@Column(name="date_of_creation")
+	private Date dateOfCreation;
 }

@@ -3,6 +3,7 @@ package AhmetTanrikulu.HRMSBackend.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.ExperienceService;
@@ -28,12 +29,14 @@ public class ExperienceManager implements ExperienceService{
 	
 	@Override
 	public Result add(Experience experience) {
-		if(experience.isWorkingStatus_b()) {
+		if(experience.getQuitDate() == null) {
+			experience.setWorkingStatus_b(true);
 			experience.setWorkingStatus("Devam ediyor");
-			this.experienceDao.save(experience);
-		}else{
-		experience.setWorkingStatus("Devam etmiyor");
-		this.experienceDao.save(experience); }
+		}else {
+			experience.setWorkingStatus_b(false);
+			experience.setWorkingStatus("Devam etmiyor");
+		}
+		this.experienceDao.save(experience); 
 		return new SuccessResult("Tecrübeniz eklendi");
 	}
 
@@ -45,7 +48,8 @@ public class ExperienceManager implements ExperienceService{
 
 	@Override
 	public DataResult<List<Experience>> getAllByUserIdOrderByQuitDate(int userId) {
-		return new SuccessDataResult<List<Experience>>(this.experienceDao.getAllByUserIdOrderByQuitDate(userId));
+		Sort sort =Sort.by(Sort.Direction.DESC,"quitDate");
+		return new SuccessDataResult<List<Experience>>(this.experienceDao.findAll(sort));
 	}
 
 

@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -46,7 +47,6 @@ public class Employee extends User{
 	
 	@Column(name="birth_date")
 	@NotNull
-	@NotBlank
 	private Date birthDate;
 	
 	@Column(name="phone_number")
@@ -54,18 +54,26 @@ public class Employee extends User{
 	@NotBlank
 	private String phoneNumber;
 	
+	@Column(name="creation_date")
+	private Date creationDate;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
 	private List<SingleInformation> singleInformations;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
 	private List<Ability> abilities;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
 	private List<Education> educations;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
 	private List<Experience> experiences;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
 	private List<Language> languages;
  }

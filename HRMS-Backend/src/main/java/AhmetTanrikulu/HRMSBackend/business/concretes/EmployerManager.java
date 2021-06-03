@@ -1,5 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -59,13 +60,16 @@ public class EmployerManager implements EmployerService{
 				CheckIfTheEmailIsRegistered(employer),
 				isRealEmail(employer),
 				CheckIfTheTaxNumberIsRegistered(employer),
-				NationalityIdValidation(employer)
+				NationalityIdValidation(employer),
+				isRealPhoneNumber(employer)
 				);
 		if (result != null) {
 			return result;
 		}
 		User savedUser = this.userService.add(employer);
 		this.emailVerificationService.generateCode(new EmailVerification(),savedUser.getUserId());
+		Date now=java.util.Calendar.getInstance().getTime();
+		employer.setCreationDate(now);
 		this.employerDao.save(employer);
 		return new SuccessResult("İş veren olarak kayıt olundu ,lütfen hesabınızı email adresinize"
 				+ " gönderdiğimiz kod ile doğrulayınız ID numaranız:"+employer.getUserId());
@@ -117,6 +121,18 @@ public class EmployerManager implements EmployerService{
 		return new SuccessResult();
 	}
 	
+	private Result isRealPhoneNumber(Employer employer) {
+		String phoneNumber = employer.getPhoneNumber();
+		String regex = "^[0-9]+$";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(phoneNumber);
+	     if(!matcher.matches() || phoneNumber.length()<10) {
+	    	 return new ErrorResult("Hatalı telefon numarası girdiniz");
+	     }
+	     return new SuccessResult();
+	     }
+	}
+	
 	
 
-}
+

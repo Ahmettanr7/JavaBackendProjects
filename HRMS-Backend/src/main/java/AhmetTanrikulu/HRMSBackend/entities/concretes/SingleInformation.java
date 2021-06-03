@@ -44,9 +44,6 @@ public class SingleInformation {
 	@Column(name = "cover_letter")
 	private String coverLetter;
 
-	@Column(name = "image_url")
-	private String imageUrl;
-
 	@Column(name = "created_date")
 	private Date createdDate;
 	

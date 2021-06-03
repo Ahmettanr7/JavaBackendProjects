@@ -1,5 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +13,7 @@ import AhmetTanrikulu.HRMSBackend.business.abstracts.EducationService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.EmailVerificationService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.EmployeeService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.ExperienceService;
+import AhmetTanrikulu.HRMSBackend.business.abstracts.ImageService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.LanguageService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.SingleInformationService;
 import AhmetTanrikulu.HRMSBackend.business.abstracts.UserService;
@@ -38,7 +40,8 @@ public class EmployeeManager implements EmployeeService{
 	private SingleInformationService singleInformationService;
 	private EducationService educationService;
 	private ExperienceService experienceService;
-	private LanguageService LanguageService;
+	private LanguageService languageService;
+	private ImageService imageService;
 
 	@Autowired
 	public EmployeeManager(
@@ -49,7 +52,8 @@ public class EmployeeManager implements EmployeeService{
 			SingleInformationService singleInformationService,
 			EducationService educationService,
 			ExperienceService experienceService,
-			LanguageService languageService
+			LanguageService languageService,
+			ImageService imageService
 			) {
 		super();
 		this.employeeDao = employeeDao;
@@ -59,7 +63,8 @@ public class EmployeeManager implements EmployeeService{
 		this.singleInformationService = singleInformationService;
 		this.educationService = educationService;
 		this.experienceService = experienceService;
-		this.LanguageService = languageService;
+		this.languageService = languageService;
+		this.imageService = imageService;
 	}
 
 	@Override
@@ -80,6 +85,8 @@ public class EmployeeManager implements EmployeeService{
 			return result;
 		}
 		User savedUser = this.userService.add(employee);
+		Date now=java.util.Calendar.getInstance().getTime();
+		employee.setCreationDate(now);
 		this.employeeDao.save(employee);
 		this.emailVerificationService.generateCode(new EmailVerification(),savedUser.getUserId());
 		return new SuccessResult("İş arayan olarak kayıt olundu ,lütfen hesabınızı email adresinize"
@@ -139,9 +146,10 @@ public class EmployeeManager implements EmployeeService{
 		cv.educations = this.educationService.getAllByUserIdOrderByGraduationDateDesc(userId).getData();
 		cv.experiences = this.experienceService.getAllByUserIdOrderByQuitDate(userId).getData();
 		cv.abilities = this.abilityService.getAllByUserId(userId).getData();
-		cv.languages = this.LanguageService.getAllByUserId(userId).getData();
+		cv.languages = this.languageService.getAllByUserId(userId).getData();
 		cv.singleInformation = this.singleInformationService.getByUserId(userId).getData();
-		
+		cv.images = this.imageService.getAllByUserId(userId).getData();
+	
 		return new SuccessDataResult<CurriculumVitaeDto>(cv);
 		
 	}

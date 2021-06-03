@@ -1,5 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -37,8 +38,15 @@ public class ImageManager implements ImageService {
 
 	@Override
 	public Result add(Image image) {
+		Date now=java.util.Calendar.getInstance().getTime();
+		image.setDateOfCreation(now);
 		this.imageDao.save(image);
 		return new SuccessResult("Başarıyla eklendi");
+	}
+
+	@Override
+	public DataResult<List<Image>> getAllByUserId(int userId) {
+		return new SuccessDataResult<List<Image>>(this.imageDao.getAllByUserId(userId));
 	}
 
 }

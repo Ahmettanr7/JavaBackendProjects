@@ -1,6 +1,10 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,13 +50,15 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 	@Override
 	public Result add(SystemEmployee systemEmployee) {
 		var result = BusinessRules.run(
-				CheckIfTheEmailIsRegistered(systemEmployee)
-				
+				CheckIfTheEmailIsRegistered(systemEmployee),
+				isRealPhoneNumber(systemEmployee)
 				);
 		if (result != null) {
 			return result;
 		}
 		 this.userService.add(systemEmployee);
+		 Date now=java.util.Calendar.getInstance().getTime();
+		 systemEmployee.setDateOfStart(now);
 		this.systemEmployeeDao.save(systemEmployee);
 		return new SuccessResult("Sistem çalışanı olarak kayıt olundu.");
 		
@@ -60,6 +66,8 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 
 	@Override
 	public Result update(SystemEmployee systemEmployee) {
+		Date now=java.util.Calendar.getInstance().getTime();
+		systemEmployee.setDateOfStart(now);
 		this.systemEmployeeDao.save(systemEmployee);
 		return new SuccessResult("Sistem çalışanı güncellendi");
 	}
@@ -77,6 +85,17 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 		}
 		return new SuccessResult();
 	}
+	
+	private Result isRealPhoneNumber(SystemEmployee systemEmployee) {
+		String phoneNumber = systemEmployee.getPhoneNumber();
+		String regex = "^[0-9]+$";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(phoneNumber);
+	     if(!matcher.matches() || phoneNumber.length()<10 || phoneNumber.length() > 12) {
+	    	 return new ErrorResult("Hatalı telefon numarası girdiniz");
+	     }
+	     return new SuccessResult();
+	     }
 
 	
 

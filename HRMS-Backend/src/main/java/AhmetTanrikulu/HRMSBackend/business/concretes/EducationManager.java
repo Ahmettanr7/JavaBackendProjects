@@ -3,6 +3,7 @@ package AhmetTanrikulu.HRMSBackend.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.EducationService;
@@ -26,12 +27,14 @@ public class EducationManager implements EducationService{
 
 	@Override
 	public Result add(Education education) {
-		if(education.isGraduationStatus()) {
-			education.setEducationStatus("Mezun");
-			this.educationDao.save(education);
+		if(education.getGraduationDate() == null) {
+			education.setGraduationStatus(false);
+			education.setEducationStatus("Devam ediyor");
 		}else {
-		education.setEducationStatus("Devam ediyor");
-		 this.educationDao.save(education); }
+			education.setGraduationStatus(true);
+			education.setEducationStatus("Mezun");
+		}
+		 this.educationDao.save(education);
 		 return new SuccessResult("Eğitim bilgisi eklendi");
 	}
 
@@ -42,7 +45,8 @@ public class EducationManager implements EducationService{
 
 	@Override
 	public DataResult<List<Education>> getAllByUserIdOrderByGraduationDateDesc(int userId) {
-		return new SuccessDataResult<List<Education>>(this.educationDao.getAllByUserIdOrderByGraduationDateDesc(userId));
+		Sort sort =Sort.by(Sort.Direction.DESC,"graduationDate");
+		return new SuccessDataResult<List<Education>>(this.educationDao.findAll(sort));
 	}
 
 }

@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.ImageService;
 import AhmetTanrikulu.HRMSBackend.core.Service.CloudinaryService;
+import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Image;
 
 
@@ -46,6 +47,12 @@ public class ImagesController {
 		
 		List<Image> list  = this.imageService.getAll().getData();
 		return new ResponseEntity<>(list,HttpStatus.OK);
+	}
+	
+	@GetMapping("getallbyuserid")
+	public DataResult<List<Image>> getAllByUserId (int userId){
+		
+		return this.imageService.getAllByUserId(userId);
 	}
 	
 	

@@ -34,7 +34,6 @@ public class SystemEmployee extends User{
 	private String lastName;
 	
 	@Column(name="date_of_start")
-	@NotNull
 	private Date dateOfStart;
 	
 	@Column(name="phone_number")

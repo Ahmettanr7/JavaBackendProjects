@@ -1,5 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.entities.concretes;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -42,14 +43,14 @@ public class Experience {
 	private String position;
 
 	@Column(name="date_of_start")
-	@NotBlank
+	@NotNull
 	private Date dateOfStart;
 	
 	@Column(name="quit_date")
-	private Date quitDate;
+	private LocalDate quitDate;
 	
 	@Column(name="working_status_b")
-	private boolean workingStatus_b;
+	private boolean workingStatus_b ;
 	
 	@Column(name="working_status")
 	private String workingStatus;

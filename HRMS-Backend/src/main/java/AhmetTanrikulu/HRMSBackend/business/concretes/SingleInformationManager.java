@@ -1,5 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class SingleInformationManager implements SingleInformationService{
 
 	@Override
 	public Result add(SingleInformation curriculumVitae ) {
+		Date now=java.util.Calendar.getInstance().getTime();
+		curriculumVitae.setCreatedDate(now);
 		this.singleInformationDao.save(curriculumVitae);
 		return new SuccessResult("Cv oluşturuldu");
 	}

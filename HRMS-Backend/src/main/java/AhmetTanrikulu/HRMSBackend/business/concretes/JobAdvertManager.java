@@ -1,5 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class JobAdvertManager implements JobAdvertService{
 		if (result != null) {
 			return result;
 		}
+		Date now=java.util.Calendar.getInstance().getTime();
+		jobAdvert.setAdvertDate(now);
 		this.jobAdvertDao.save(jobAdvert);
 		return new SuccessResult("İlan yayınlandı");
 		

@@ -1,5 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.entities.concretes;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -45,7 +46,7 @@ public class Education {
 	private Date startingDate;
 	
 	@Column(name = "graduation_date")
-	private Date graduationDate;
+	private LocalDate graduationDate;
 	
 	@Column(name="graduation_status")
 	private boolean graduationStatus;
