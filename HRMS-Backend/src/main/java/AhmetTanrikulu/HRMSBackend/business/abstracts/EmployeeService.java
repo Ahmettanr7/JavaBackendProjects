@@ -14,6 +14,8 @@ public interface EmployeeService {
 	Result update(Employee employee);
 	Result delete(Employee employee);
 	
+	DataResult<Employee> getByUserId(int userId);
+	
 	DataResult<CurriculumVitaeDto> getCurriculumVitaeByUserId(int userId);
 
 }

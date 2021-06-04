@@ -12,4 +12,6 @@ public interface EmployeeDao extends JpaRepository<Employee, Integer> {
 	
 	List<Employee> findAllByNationalityId(String nationalityId);
 	
+	Employee getByUserId(int userId);
+	
 }

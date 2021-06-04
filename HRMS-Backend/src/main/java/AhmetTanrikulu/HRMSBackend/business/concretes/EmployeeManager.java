@@ -72,6 +72,11 @@ public class EmployeeManager implements EmployeeService{
 		return new SuccessDataResult<List<Employee>>(this.employeeDao.findAll(),"Verier listelendi");
 				
 	}
+	
+	@Override
+	public DataResult<Employee> getByUserId(int userId) {
+		return new SuccessDataResult<Employee>(this.employeeDao.getByUserId(userId));
+	}
 
 	@Override
 	public Result add(Employee employee) {
@@ -142,7 +147,8 @@ public class EmployeeManager implements EmployeeService{
 	@Override
 	public DataResult<CurriculumVitaeDto> getCurriculumVitaeByUserId(int userId) {
 		CurriculumVitaeDto cv = new CurriculumVitaeDto();
-
+		
+		cv.employee = this.getByUserId(userId).getData();
 		cv.educations = this.educationService.getAllByUserIdOrderByGraduationDateDesc(userId).getData();
 		cv.experiences = this.experienceService.getAllByUserIdOrderByQuitDate(userId).getData();
 		cv.abilities = this.abilityService.getAllByUserId(userId).getData();
