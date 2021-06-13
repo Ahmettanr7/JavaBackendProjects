@@ -1,5 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.entities.dtos;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -19,12 +20,19 @@ public class JobAdvertDto {
 	
 	private int quantity;
 	
-	private Date advertDate;
+	private LocalDate advertDate;
 	
-	private Date dueDate;
+	private LocalDate dueDate;
 	
 	private boolean activityStatus;
 	
+	private String cityName;
+	
+	private String description;
+	
+	private float minSalary;
+	
+	private float maxSalary;
 	
 
 }

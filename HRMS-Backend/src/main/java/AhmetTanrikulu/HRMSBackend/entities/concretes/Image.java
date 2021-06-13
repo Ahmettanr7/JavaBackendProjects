@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 
 
+
 @Data
 @Table(name = "images")
 @Entity
@@ -19,12 +20,13 @@ import javax.validation.constraints.NotNull;
 public class Image {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     
-    @Column(name="user_id")
-	@NotNull
-	private int userId;
+   // @Column(name="user_id")
+	//@NotNull
+	//private int userId;
 
     @Column(name="name")
 	private String name;
@@ -37,4 +39,8 @@ public class Image {
 	
 	@Column(name="date_of_creation")
 	private Date dateOfCreation;
+	
+	@ManyToOne()
+	@JoinColumn(name = "user_id")
+	private User user;
 }

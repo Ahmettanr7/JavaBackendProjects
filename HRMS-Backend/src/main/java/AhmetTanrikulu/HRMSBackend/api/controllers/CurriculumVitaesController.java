@@ -137,9 +137,9 @@ public class CurriculumVitaesController {
 	}
 	
 	@GetMapping("/cloudinary/images/getallbyuserid")
-	public DataResult<List<Image>> getAllImagesByUserId (int userId){
+	public DataResult<Image> getImagesByUserId (int userId){
 		
-		return this.imageService.getAllByUserId(userId);
+		return this.imageService.getByUserId(userId);
 	}
 	
 	

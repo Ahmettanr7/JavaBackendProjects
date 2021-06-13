@@ -1,9 +1,10 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.JobAdvertService;
@@ -31,32 +32,64 @@ public class JobAdvertManager implements JobAdvertService{
 	@Override
 	public Result add(JobAdvert jobAdvert) {
 		var result = BusinessRules.run(
-				CheckIfRepetition(jobAdvert)
+				CheckIfSalary(jobAdvert)
 				);
 		if (result != null) {
 			return result;
 		}
-		Date now=java.util.Calendar.getInstance().getTime();
+		LocalDate now = LocalDate.now();
 		jobAdvert.setAdvertDate(now);
+		jobAdvert.setActivityStatus(false); //Sistem çalışanı onayı gerekli!
+		jobAdvert.setAdStatusDescription("ONAY BEKLİYOR");
 		this.jobAdvertDao.save(jobAdvert);
-		return new SuccessResult("İlan yayınlandı");
-		
+		return new SuccessResult("İlan onaylandıktan sonra yayınlanacak");	
 	}
 	
 	@Override
-	public Result closeAdvert(JobAdvert jobAdvert) {
-		if(jobAdvert.isActivityStatus()==false) {
-			return new ErrorResult("İlan zaten yayında değil");
-		}
-		jobAdvert.setActivityStatus(false);
-		this.jobAdvertDao.save(jobAdvert);
-		return new SuccessResult("İlan yayından kaldırıldı");
-		
+	public Result closeAdvert(int jobAdvertId) {
+		var jobAdvert = this.jobAdvertDao.getByJobAdvertId(jobAdvertId);
+		if(jobAdvert.isActivityStatus()==true) {
+			jobAdvert.setAdStatusDescription("İŞVEREN TARAFINDAN KALDIRILDI");
+			jobAdvert.setActivityStatus(false);
+			this.jobAdvertDao.save(jobAdvert);
+			return new SuccessResult("İlan yayından kaldırıldı");
+			}else if(jobAdvert.isActivityStatus()==false) {
+				return new ErrorResult("İlan zaten yayında değil");	
+			}
+				return new ErrorResult("Hata");	
 	}
+	
+	@Override
+	public Result closeAdvertAdmin(int jobAdvertId) {
+		var jobAdvert = this.jobAdvertDao.getByJobAdvertId(jobAdvertId);
+		if(jobAdvert.isActivityStatus()==true) {
+			jobAdvert.setAdStatusDescription("ADMİN TARAFINDAN KALDIRILDI");
+			jobAdvert.setActivityStatus(false);
+			this.jobAdvertDao.save(jobAdvert);
+			return new SuccessResult("İlan yayından kaldırıldı");
+			}else if(jobAdvert.isActivityStatus()==false) {
+				return new ErrorResult("İlan zaten yayında değil");	
+			}
+				return new ErrorResult("Hata");	
+	}
+	
+	@Override
+	public Result confirmAdvert(int jobAdvertId) {
+		var jobAdvert = this.jobAdvertDao.getByJobAdvertId(jobAdvertId);
+		if(jobAdvert.isActivityStatus()==true) {
+			return new ErrorResult ("İlan zaten yayında");
+		}
+		jobAdvert.setAdStatusDescription("YAYINDA");
+		jobAdvert.setActivityStatus(true);
+		this.jobAdvertDao.save(jobAdvert);
+		return new SuccessResult("İlan onaylandı");
+	}
+	
 	
 	@Override
 	public DataResult<List<JobAdvert>> getAll() {
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll(),"İlanlar tablosunun bütün verileri listelendi");
+		Sort sort =Sort.by(Sort.Direction.DESC,"advertDate");
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll(sort),"İlanlar tablosunun bütün verileri listelendi");
 	}
 	
 	@Override
@@ -85,6 +118,16 @@ public class JobAdvertManager implements JobAdvertService{
 	}
 	
 	@Override
+	public DataResult<List<JobAdvert>> getAllByCity_CityName(String cityName) {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getAllByCity_CityName(cityName));
+	}
+
+	@Override
+	public DataResult<List<JobAdvert>> getAllByCity_CityId(int cityId) {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getAllByCity_CityId(cityId));
+	}	
+	
+	@Override
 	public DataResult<List<JobAdvertDto>> getJobAdvertDto() {
 		return new SuccessDataResult<List<JobAdvertDto>>(this.jobAdvertDao.getJobAdvertDto());
 	}
@@ -94,22 +137,28 @@ public class JobAdvertManager implements JobAdvertService{
 		return new SuccessDataResult<List<JobAdvertDto>>(this.jobAdvertDao.getJobAdvertDtoActiveAdvertsByDate());
 	}
 	
-	private Result CheckIfRepetition(JobAdvert jobAdvert) {
-		if(jobAdvertDao.getAllByActivityStatusIsTrueAndPosition_PositionId(jobAdvert.getPosition().getPositionId()).stream().count() != 0) {
-			return new ErrorResult("Bu pozisyonunda aktif iş ilanınız bulunmaktadır.");
+	@Override
+	public DataResult<JobAdvert> getByJobAdvertId(int jobAdvertId) {
+		return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.getByJobAdvertIdAndActive(jobAdvertId));
+	}
+	
+	@Override
+	public DataResult<List<JobAdvert>> getByActivityStatusIsFalseOrderByAdvertDateDesc() {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsFalseOrderByAdvertDateDesc());
+	}
+	
+//	private Result CheckIfRepetition(JobAdvert jobAdvert) {
+//		if(jobAdvertDao.getAllByActivityStatusIsTrueAndPosition_PositionId(jobAdvert.getPosition().getPositionId()).stream().count() != 0) {
+//			return new ErrorResult("Bu pozisyonunda aktif iş ilanınız bulunmaktadır.");
+//		}
+//		return new SuccessResult();
+//	}
+	private Result CheckIfSalary(JobAdvert jobAdvert) {
+		if(jobAdvert.getMinSalary() > jobAdvert.getMaxSalary()) {
+			return new ErrorResult("Minimum maaş Maximum maaştan yüksek olamaz!");
 		}
 		return new SuccessResult();
 	}
 
-	
-
-	
-
-	
-
-	
-
-	
-	
 }
 

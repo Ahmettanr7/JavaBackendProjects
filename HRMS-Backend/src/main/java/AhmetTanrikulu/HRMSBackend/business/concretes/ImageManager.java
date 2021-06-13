@@ -45,8 +45,8 @@ public class ImageManager implements ImageService {
 	}
 
 	@Override
-	public DataResult<List<Image>> getAllByUserId(int userId) {
-		return new SuccessDataResult<List<Image>>(this.imageDao.getAllByUserId(userId));
+	public DataResult<Image> getByUserId(int userId) {
+		return new SuccessDataResult<Image>(this.imageDao.getByUser_UserId(userId));
 	}
 
 }

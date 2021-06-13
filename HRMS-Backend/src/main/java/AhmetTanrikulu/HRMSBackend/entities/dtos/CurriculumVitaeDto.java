@@ -30,7 +30,7 @@ public class CurriculumVitaeDto {
 	
 	public SingleInformation singleInformation;
 	
-	public List<Image> images;
+	public Image images;
 
 	
 

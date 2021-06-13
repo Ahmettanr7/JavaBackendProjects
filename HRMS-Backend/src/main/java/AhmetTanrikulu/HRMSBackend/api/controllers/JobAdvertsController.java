@@ -11,11 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +30,7 @@ import AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto;
 
 @RestController
 @RequestMapping("/api/jobadverts/")
+@CrossOrigin
 public class JobAdvertsController {
 	
 	private JobAdvertService jobAdvertService;
@@ -69,7 +72,7 @@ public class JobAdvertsController {
 	}
 	
 	@GetMapping("getByUserIdAndSortByAdvertDateDesc")
-	public DataResult<List<JobAdvert>> getByEmployerIdOrderByAdvertDateDesc(int userId){
+	public DataResult<List<JobAdvert>> getByUserIdAndSortByAdvertDateDesc(int userId){
 		return this.jobAdvertService.getByUserIdAndSortByAdvertDateDesc(userId);
 	}
 	
@@ -78,15 +81,46 @@ public class JobAdvertsController {
 		return this.jobAdvertService.getByCompanyNameAndSortByAdvertDateDesc(companyName);
 	}
 	
+	@GetMapping("getallbycityname")
+	public DataResult<List<JobAdvert>> getAllByCityName(String cityName){
+		return this.jobAdvertService.getAllByCity_CityName(cityName);
+	}
+	
+	@GetMapping("getallbycityid")
+	public DataResult<List<JobAdvert>> getAllByCityId(@RequestParam int cityId){
+		return this.jobAdvertService.getAllByCity_CityId(cityId);
+	}
+	
+	@GetMapping("getbyjobadvertid")
+	public DataResult<JobAdvert> getByJobAdvertId(int jobAdvertId){
+		return this.jobAdvertService.getByJobAdvertId(jobAdvertId);
+	}
+	
+	@GetMapping("getByActivityStatusIsFalse")
+	public DataResult<List<JobAdvert>> getByActivityStatusIsFalse(){
+		return this.jobAdvertService.getByActivityStatusIsFalseOrderByAdvertDateDesc();
+	}
+	
 	@PostMapping("add")
 	public ResponseEntity<?> add(@Valid @RequestBody JobAdvert jobAdvert) {
 		return ResponseEntity.ok(this.jobAdvertService.add(jobAdvert));
 	}
 	
-	@PostMapping("closeAdvert")
-	public Result closeAdvert(@RequestBody JobAdvert jobAdvert) {
-		return this.jobAdvertService.closeAdvert(jobAdvert);
+	@PostMapping("confirmAdvert")
+	public Result confirmAdvert(@RequestParam int jobAdvertId) {
+		return this.jobAdvertService.confirmAdvert(jobAdvertId);
 	}
+	
+	@PostMapping("closeAdvertAdmin")
+	public Result closeAdvertAdmin( @RequestParam int jobAdvertId) {
+		return this.jobAdvertService.closeAdvertAdmin(jobAdvertId);
+	}
+	
+	@PostMapping("closeAdvert")
+	public Result closeAdvert( @RequestParam int jobAdvertId) {
+		return this.jobAdvertService.closeAdvert(jobAdvertId);
+	}
+	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

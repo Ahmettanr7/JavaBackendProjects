@@ -11,6 +11,6 @@ public interface ImageService {
 	DataResult<List<Image>> getAll();
 	Result add(Image image);
 	
-	DataResult<List<Image>> getAllByUserId(int userId);
+	DataResult<Image> getByUserId(int userId);
 	
 }

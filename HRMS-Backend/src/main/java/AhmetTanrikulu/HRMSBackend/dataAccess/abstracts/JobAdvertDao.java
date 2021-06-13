@@ -10,17 +10,49 @@ import AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto;
 
 public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer>{
 	
+	//getActive
 	List<JobAdvert> getByActivityStatusIsTrue();
+	
+	//getActiveSortDesc
 	List<JobAdvert> getByActivityStatusIsTrueOrderByAdvertDateAsc();
 	List<JobAdvert> getByActivityStatusIsTrueOrderByAdvertDateDesc();
+	
+	//getByCompany
 	List<JobAdvert> getByEmployer_UserIdOrderByAdvertDateDesc(int userId);
 	List<JobAdvert> getByEmployer_CompanyNameOrderByAdvertDateDesc(String companyName);
 	
+	
+	JobAdvert getByJobAdvertId(int jobAdvertId);
+	
+	//getById&Acitive
+	@Query("From JobAdvert Where jobAdvertId = :jobAdvertId and activityStatus = 1")
+	JobAdvert getByJobAdvertIdAndActive(int jobAdvertId);
+	
+	//PandingApprovalSortDesc
+	List<JobAdvert> getByActivityStatusIsFalseOrderByAdvertDateDesc();
+	
+	//getByCity
+	List<JobAdvert> getAllByCity_CityName(String cityName);
+	List<JobAdvert> getAllByCity_CityId(int cityId);
+	
+	//getByPosition&Active
+	@Query("From JobAdvert Where position.positionId = :positionId and activityStatus = 1")
 	List<JobAdvert> getAllByActivityStatusIsTrueAndPosition_PositionId(int positionId);
 
-	@Query("Select new AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto(j.jobAdvertId,e.companyName,p.positionName,j.quantity,j.advertDate,j.dueDate,j.activityStatus) From Employer e Inner Join e.jobAdverts j, Position p Inner Join p.jobAdverts")
+	//getAllDto
+	@Query("Select new AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto"
+			+ "(jobAdvertId,employer.companyName,position.positionName,quantity,advertDate,dueDate,activityStatus,city.cityName,"
+			+ "description,minSalary,maxSalary) "
+			+ "From JobAdvert")
 	List<JobAdvertDto> getJobAdvertDto();
 	
-	@Query("Select new AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto(j.jobAdvertId,e.companyName,p.positionName,j.quantity,j.advertDate,j.dueDate,j.activityStatus) From Employer e Inner Join e.jobAdverts j, Position p Inner Join p.jobAdverts Where j.activityStatus = 1 Order By j.advertDate Desc")
+	
+	//getActiveDto
+	@Query("Select new AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto"
+			+ "(jobAdvertId,employer.companyName,position.positionName,quantity,advertDate,dueDate,activityStatus,city.cityName,"
+			+ "description,minSalary,maxSalary) "
+			+ "From JobAdvert "
+			+ "Where activityStatus = 1 Order By advertDate Desc")
 	List<JobAdvertDto> getJobAdvertDtoActiveAdvertsByDate();
+	
 }

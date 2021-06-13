@@ -1,7 +1,7 @@
 package AhmetTanrikulu.HRMSBackend.entities.concretes;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Table(name="employees")
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","singleInformations","abilities","educations","experiences","languages",})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","singleInformations","abilities","educations","experiences","languages","images"})
 public class Employee extends User{
 	
 
@@ -47,7 +47,7 @@ public class Employee extends User{
 	
 	@Column(name="birth_date")
 	@NotNull
-	private Date birthDate;
+	private LocalDate birthDate;
 	
 	@Column(name="phone_number")
 	@NotNull
@@ -55,25 +55,29 @@ public class Employee extends User{
 	private String phoneNumber;
 	
 	@Column(name="creation_date")
-	private Date creationDate;
+	private LocalDate creationDate;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
+	@JsonIgnore
 	private List<SingleInformation> singleInformations;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
+	@JsonIgnore
 	private List<Ability> abilities;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
+	@JsonIgnore
 	private List<Education> educations;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
+	@JsonIgnore
 	private List<Experience> experiences;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
+	@JsonIgnore
 	private List<Language> languages;
+	
+	@OneToMany(mappedBy = "employee")
+	@JsonIgnore
+	private List<Image> images;
  }

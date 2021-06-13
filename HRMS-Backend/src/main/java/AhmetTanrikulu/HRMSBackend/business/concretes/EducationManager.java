@@ -3,7 +3,6 @@ package AhmetTanrikulu.HRMSBackend.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.EducationService;
@@ -45,8 +44,7 @@ public class EducationManager implements EducationService{
 
 	@Override
 	public DataResult<List<Education>> getAllByUserIdOrderByGraduationDateDesc(int userId) {
-		Sort sort =Sort.by(Sort.Direction.DESC,"graduationDate");
-		return new SuccessDataResult<List<Education>>(this.educationDao.findAll(sort));
+		return new SuccessDataResult<List<Education>>(this.educationDao.getAllByUserIdOrderByGraduationDateDesc(userId));
 	}
 
 }

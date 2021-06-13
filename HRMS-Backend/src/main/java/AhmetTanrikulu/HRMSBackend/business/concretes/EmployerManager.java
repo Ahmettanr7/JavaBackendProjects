@@ -1,6 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -68,7 +68,7 @@ public class EmployerManager implements EmployerService{
 		}
 		User savedUser = this.userService.add(employer);
 		this.emailVerificationService.generateCode(new EmailVerification(),savedUser.getUserId());
-		Date now=java.util.Calendar.getInstance().getTime();
+		LocalDate now = LocalDate.now();
 		employer.setCreationDate(now);
 		this.employerDao.save(employer);
 		return new SuccessResult("İş veren olarak kayıt olundu ,lütfen hesabınızı email adresinize"

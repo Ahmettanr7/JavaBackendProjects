@@ -50,9 +50,9 @@ public class ImagesController {
 	}
 	
 	@GetMapping("getallbyuserid")
-	public DataResult<List<Image>> getAllByUserId (int userId){
+	public DataResult<Image> getByUserId (int userId){
 		
-		return this.imageService.getAllByUserId(userId);
+		return this.imageService.getByUserId(userId);
 	}
 	
 	

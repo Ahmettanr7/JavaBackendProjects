@@ -18,10 +18,19 @@ public interface JobAdvertService {
 	DataResult<List<JobAdvert>> getByUserIdAndSortByAdvertDateDesc(int userId);
 	DataResult<List<JobAdvert>> getByCompanyNameAndSortByAdvertDateDesc(String companyName);
 	
+	DataResult<List<JobAdvert>> getAllByCity_CityName(String cityName);
+	DataResult<List<JobAdvert>> getAllByCity_CityId(int cityId);
+	
 	DataResult<List<JobAdvertDto>> getJobAdvertDto();
 	DataResult<List<JobAdvertDto>> getJobAdvertDtoActiveAdvertsByDate();
+	
+	DataResult<JobAdvert> getByJobAdvertId(int jobAdvertId);
+	
+	DataResult<List<JobAdvert>> getByActivityStatusIsFalseOrderByAdvertDateDesc();
  	
 	Result add(JobAdvert jobAdvert);
-	Result closeAdvert(JobAdvert jobAdvert);
+	Result closeAdvert(int jobAdvertId);
+	Result closeAdvertAdmin(int jobAdvertId);
+	Result confirmAdvert(int jobAdvertId);
 
 }

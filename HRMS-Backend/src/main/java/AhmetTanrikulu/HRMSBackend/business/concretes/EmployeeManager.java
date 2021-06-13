@@ -1,6 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,6 +77,21 @@ public class EmployeeManager implements EmployeeService{
 	public DataResult<Employee> getByUserId(int userId) {
 		return new SuccessDataResult<Employee>(this.employeeDao.getByUserId(userId));
 	}
+	@Override
+	public DataResult<CurriculumVitaeDto> getCurriculumVitaeByUserId(int userId) {
+		CurriculumVitaeDto cv = new CurriculumVitaeDto();
+		
+		cv.employee = this.getByUserId(userId).getData();
+		cv.educations = this.educationService.getAllByUserIdOrderByGraduationDateDesc(userId).getData();
+		cv.experiences = this.experienceService.getAllByUserIdOrderByQuitDate(userId).getData();
+		cv.abilities = this.abilityService.getAllByUserId(userId).getData();
+		cv.languages = this.languageService.getAllByUserId(userId).getData();
+		cv.singleInformation = this.singleInformationService.getByUserId(userId).getData();
+		cv.images = this.imageService.getByUserId(userId).getData();
+	
+		return new SuccessDataResult<CurriculumVitaeDto>(cv);
+		
+	}
 
 	@Override
 	public Result add(Employee employee) {
@@ -90,7 +105,7 @@ public class EmployeeManager implements EmployeeService{
 			return result;
 		}
 		User savedUser = this.userService.add(employee);
-		Date now=java.util.Calendar.getInstance().getTime();
+		LocalDate now = LocalDate.now();
 		employee.setCreationDate(now);
 		this.employeeDao.save(employee);
 		this.emailVerificationService.generateCode(new EmailVerification(),savedUser.getUserId());
@@ -144,20 +159,6 @@ public class EmployeeManager implements EmployeeService{
 		return new SuccessResult();
 	}
 
-	@Override
-	public DataResult<CurriculumVitaeDto> getCurriculumVitaeByUserId(int userId) {
-		CurriculumVitaeDto cv = new CurriculumVitaeDto();
-		
-		cv.employee = this.getByUserId(userId).getData();
-		cv.educations = this.educationService.getAllByUserIdOrderByGraduationDateDesc(userId).getData();
-		cv.experiences = this.experienceService.getAllByUserIdOrderByQuitDate(userId).getData();
-		cv.abilities = this.abilityService.getAllByUserId(userId).getData();
-		cv.languages = this.languageService.getAllByUserId(userId).getData();
-		cv.singleInformation = this.singleInformationService.getByUserId(userId).getData();
-		cv.images = this.imageService.getAllByUserId(userId).getData();
 	
-		return new SuccessDataResult<CurriculumVitaeDto>(cv);
-		
-	}
 
 }

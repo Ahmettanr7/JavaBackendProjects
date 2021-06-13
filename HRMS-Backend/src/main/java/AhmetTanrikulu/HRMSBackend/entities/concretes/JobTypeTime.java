@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,23 +18,20 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="positions")
+@Table(name="job_type_time")
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdverts"})
-public class Position {
+public class JobTypeTime {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="position_id")
-	private int positionId;
+	@Column(name="time_type_id")
+	private int timeTypeId;
 	
-	@Column(name="position_name")
-	@NotNull
-	@NotBlank
-	private String positionName;
-	
-	@OneToMany(mappedBy = "position")
+	@Column(name="time_type_name")
+	private String timeTypeName;
+
+	@OneToMany(mappedBy = "jobTypeTime")
 	private List<JobAdvert> jobAdverts;
-	
-	
-	}
+}
