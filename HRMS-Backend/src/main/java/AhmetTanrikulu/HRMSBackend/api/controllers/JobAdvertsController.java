@@ -26,7 +26,6 @@ import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.ErrorDataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.JobAdvert;
-import AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto;
 
 @RestController
 @RequestMapping("/api/jobadverts/")
@@ -44,26 +43,6 @@ public class JobAdvertsController {
 	@GetMapping("getall")
 	public DataResult<List<JobAdvert>> getAll(){
 		return this.jobAdvertService.getAll();
-	}
-	
-	@GetMapping("getJobAdvertDto")
-	public DataResult<List<JobAdvertDto>> getJobAdvertDto(){
-		return this.jobAdvertService.getJobAdvertDto();
-	}
-	
-	@GetMapping("getJobAdvertDtoActiveAdvertsByDate")
-	public DataResult<List<JobAdvertDto>> getJobAdvertDtoActiveAdvertsByDate(){
-		return this.jobAdvertService.getJobAdvertDtoActiveAdvertsByDate();
-	}
-	
-	@GetMapping("getByActiviteAdverts")
-	public DataResult<List<JobAdvert>> getByActiviteAdverts(){
-		return this.jobAdvertService.getByActiviteAdverts();
-	}
-	
-	@GetMapping("getActiviteAdvertsByAdvertDateAsc")
-	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateAsc(){
-		return this.jobAdvertService.getActiviteAdvertsByAdvertDateAsc();
 	}
 	
 	@GetMapping("getActiviteAdvertsByAdvertDateDesc")
@@ -94,11 +73,6 @@ public class JobAdvertsController {
 	@GetMapping("getbyjobadvertid")
 	public DataResult<JobAdvert> getByJobAdvertId(int jobAdvertId){
 		return this.jobAdvertService.getByJobAdvertId(jobAdvertId);
-	}
-	
-	@GetMapping("getByActivityStatusIsFalse")
-	public DataResult<List<JobAdvert>> getByActivityStatusIsFalse(){
-		return this.jobAdvertService.getByActivityStatusIsFalseOrderByAdvertDateDesc();
 	}
 	
 	@PostMapping("add")

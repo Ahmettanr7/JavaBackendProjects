@@ -56,8 +56,8 @@ public class SystemEmployeesController {
 	}
 	
 	@PostMapping(value="add")
-	public ResponseEntity<?> add(@Valid @RequestBody SystemEmployee systemPersonnal) {
-		return ResponseEntity.ok(this.systemEmployeeService.add(systemPersonnal));
+	public ResponseEntity<?> add(@Valid @RequestBody SystemEmployee systemEmployee) {
+		return ResponseEntity.ok(this.systemEmployeeService.add(systemEmployee));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

@@ -1,10 +1,14 @@
 package AhmetTanrikulu.HRMSBackend.entities.concretes;
 
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -23,7 +27,6 @@ import lombok.NoArgsConstructor;
 @Table(name="system_employees")
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","images"})
 public class SystemEmployee extends User{
 	
 	@Column(name="first_name")
@@ -37,12 +40,13 @@ public class SystemEmployee extends User{
 	private String lastName;
 	
 	@Column(name="date_of_start")
-	private Date dateOfStart;
+	private LocalDate dateOfStart;
 	
 	@Column(name="phone_number")
 	@NotNull
 	@NotBlank
 	private String phoneNumber;
+	
 	
 }
 

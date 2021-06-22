@@ -38,6 +38,12 @@ public class SingleInformationManager implements SingleInformationService{
 		this.singleInformationDao.save(curriculumVitae);
 		return new SuccessResult("Cv oluşturuldu");
 	}
+	
+	@Override
+	public Result delete(int id) {
+		this.singleInformationDao.deleteById(id);
+		return new SuccessResult("Github Linkedin hesaplarınız ve Önyazınız silindi");
+	}
 
 	@Override
 	public DataResult<SingleInformation> getByUserId(int userId) {

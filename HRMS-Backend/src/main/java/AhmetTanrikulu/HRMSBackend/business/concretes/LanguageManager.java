@@ -29,6 +29,12 @@ public class LanguageManager implements LanguageService{
 		this.languageDao.save(language);
 		return new SuccessResult("Dil eklendi");
 	}
+	
+	@Override
+	public Result delete(int id) {
+		this.languageDao.deleteById(id);
+		return new SuccessResult("Yabancı dil silindi");
+	}
 
 	@Override
 	public DataResult<List<Language>> getAll() {

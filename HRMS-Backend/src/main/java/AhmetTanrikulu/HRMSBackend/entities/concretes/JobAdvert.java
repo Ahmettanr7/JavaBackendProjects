@@ -3,6 +3,7 @@ package AhmetTanrikulu.HRMSBackend.entities.concretes;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Table(name="job_adverts")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","favorites"})
 public class JobAdvert {
 	
 	@Id
@@ -61,6 +65,26 @@ public class JobAdvert {
 	@Column(name="ad_status_description")
 	private String adStatusDescription;
 	
+	@Column(name="position_id")
+	@NotNull
+	private int positionId;
+	
+	@Column(name="city_id")
+	@NotNull
+	private int cityId;
+	
+	@Column(name="user_id")
+	@NotNull
+	private int userId;
+	
+	@Column(name="place_type_id")
+	@NotNull
+	private int placeTypeId;
+	
+	@Column(name="time_type_id")
+	@NotNull
+	private int timeTypeId;
+	
 	
 	@ManyToOne()
 	@JoinColumn(name = "position_id", insertable = false, updatable = false)
@@ -82,49 +106,6 @@ public class JobAdvert {
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private Employer employer;
 	
-	@Column(name="position_id")
-	@NotNull
-	private int positionId;
-	
-	@Column(name="city_id")
-	@NotNull
-	private int cityId;
-	
-	@Column(name="user_id")
-	@NotNull
-	private int userId;
-	
-	@Column(name="place_type_id")
-	@NotNull
-	private int placeTypeId;
-	
-	@Column(name="time_type_id")
-	@NotNull
-	private int timeTypeId;
-	
-//	@ManyToOne(targetEntity = Position.class, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "position_id", insertable = false, updatable = false)
-//	@JsonIgnore
-//	private Position position;
-//	
-//	@ManyToOne(targetEntity = City.class, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "city_id", insertable = false, updatable = false)
-//	@JsonIgnore
-//	private City city;
-//	
-//	@ManyToOne(targetEntity = JobTypePlace.class, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "place_type_id", insertable = false, updatable = false)
-//	@JsonIgnore
-//	private JobTypePlace jobTypePlace;
-//	
-//	@ManyToOne(targetEntity = JobTypeTime.class, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "time_type_id", insertable = false, updatable = false)
-//	@JsonIgnore
-//	private JobTypeTime jobTypeTime;
-//	
-//	@ManyToOne(targetEntity = Employer.class, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-//	@JsonIgnore
-//	private Employer employer;
-
+	@OneToMany(mappedBy = "jobAdvert")
+	private List<Favorite> favorites;
 }

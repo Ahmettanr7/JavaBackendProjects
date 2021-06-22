@@ -11,5 +11,7 @@ public interface UserService {
 	User add(User user);
 	
 	DataResult<User> findByEmail(String email);
+	
+	DataResult <User> getByUserId(int userId);
 
 }

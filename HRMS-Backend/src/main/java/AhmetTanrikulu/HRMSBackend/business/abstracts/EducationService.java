@@ -10,8 +10,10 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.Education;
 public interface EducationService {
 	Result add(Education education);
 	
+	Result deleteByEducationId(int educationId);
+	
 	DataResult<List<Education>> getAll();
 	
-	DataResult<List<Education>> getAllByUserIdOrderByGraduationDateDesc(int userId);
+	DataResult<List<Education>> getAllByUserIdOrderByGraduationDateAsc(int userId);
 
 }

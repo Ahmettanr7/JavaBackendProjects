@@ -9,7 +9,7 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.Employer;
 
 public interface EmployerService {
 	DataResult<List<Employer>> getAll();
-	DataResult<Optional<Employer>> getByUserId(int id);
+	DataResult<Employer> getByUserId(int userId);
 	Result add(Employer employer);
 	Result update(Employer employer);
 	Result delete(Employer employer);

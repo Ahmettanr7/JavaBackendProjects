@@ -4,15 +4,13 @@ import java.util.List;
 
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
-import AhmetTanrikulu.HRMSBackend.entities.concretes.Ability;
+import AhmetTanrikulu.HRMSBackend.entities.concretes.Favorite;
 
-public interface AbilityService {
-	Result add(Ability ability);
+public interface FavoriteService {
+	Result add(Favorite favorite);
 	
 	Result delete(int id);
 	
-	DataResult<List<Ability>> getAll();
-	
-	DataResult<List<Ability>> getAllByUserId (int user_id);
+	DataResult<List<Favorite>> getAllByUserId (int userId);
 
 }

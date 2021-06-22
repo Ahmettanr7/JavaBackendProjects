@@ -12,5 +12,7 @@ public interface EmployerDao extends JpaRepository<Employer, Integer>{
 	
 	List<Employer> findAllByTaxNumber(String taxNumber);
 	
+	Employer getByUserId(int userId);
+	
 
 }

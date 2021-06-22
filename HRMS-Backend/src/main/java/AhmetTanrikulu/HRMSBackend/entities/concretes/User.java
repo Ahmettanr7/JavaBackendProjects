@@ -14,7 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -28,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","images"})
+
 public class User {
 	
 	@Id
@@ -47,7 +50,8 @@ public class User {
 	@NotBlank
 	private String password;
 	
-	@OneToMany(mappedBy = "user")
-	private List<Image> images;
+	@ManyToOne()
+	@JoinColumn(name = "image_user_id")
+	private Image image;
 	
 }

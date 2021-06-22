@@ -1,6 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +18,7 @@ import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessDataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessResult;
 import AhmetTanrikulu.HRMSBackend.dataAccess.abstracts.SystemEmployeeDao;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.SystemEmployee;
+import AhmetTanrikulu.HRMSBackend.entities.concretes.User;
 
 @Service
 public class SystemEmployeeManager implements SystemEmployeeService{
@@ -56,20 +57,12 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 		if (result != null) {
 			return result;
 		}
-		 this.userService.add(systemEmployee);
-		 Date now=java.util.Calendar.getInstance().getTime();
+		User savedUser = this.userService.add(systemEmployee);
+		 LocalDate now = LocalDate.now();
 		 systemEmployee.setDateOfStart(now);
 		this.systemEmployeeDao.save(systemEmployee);
 		return new SuccessResult("Sistem çalışanı olarak kayıt olundu.");
 		
-	}
-
-	@Override
-	public Result update(SystemEmployee systemEmployee) {
-		Date now=java.util.Calendar.getInstance().getTime();
-		systemEmployee.setDateOfStart(now);
-		this.systemEmployeeDao.save(systemEmployee);
-		return new SuccessResult("Sistem çalışanı güncellendi");
 	}
 
 	@Override

@@ -8,6 +8,6 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.Experience;
 
 public interface ExperienceDao extends JpaRepository<Experience, Integer>{
 	List<Experience> getAllByUserIdOrderByQuitDate(int userId);
-	List<Experience> getAllByUserIdOrderByQuitDateDesc(int userId);
+	List<Experience> getAllByUserIdOrderByQuitDateAsc(int userId);
 
 }

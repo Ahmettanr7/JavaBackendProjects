@@ -9,6 +9,8 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.Experience;
 public interface ExperienceService {
 	Result add(Experience experience);
 	
+	Result delete(int id);
+	
 	
 	DataResult<List<Experience>> getAll();
 	

@@ -16,7 +16,6 @@ import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessDataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessResult;
 import AhmetTanrikulu.HRMSBackend.dataAccess.abstracts.JobAdvertDao;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.JobAdvert;
-import AhmetTanrikulu.HRMSBackend.entities.dtos.JobAdvertDto;
 
 @Service
 public class JobAdvertManager implements JobAdvertService{
@@ -91,16 +90,6 @@ public class JobAdvertManager implements JobAdvertService{
 		Sort sort =Sort.by(Sort.Direction.DESC,"advertDate");
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll(sort),"İlanlar tablosunun bütün verileri listelendi");
 	}
-	
-	@Override
-	public DataResult<List<JobAdvert>> getByActiviteAdverts() {
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsTrue(),"İlanlar tablosunun aktif bütün ilanları listelendi");
-	}
-	
-	@Override
-	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateAsc() {
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsTrueOrderByAdvertDateAsc(),"İlanlar tablosunun aktif bütün ilanları tarihi artan sırayla listelendi");
-	}
 
 	@Override
 	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDesc() {
@@ -125,34 +114,12 @@ public class JobAdvertManager implements JobAdvertService{
 	@Override
 	public DataResult<List<JobAdvert>> getAllByCity_CityId(int cityId) {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getAllByCity_CityId(cityId));
-	}	
-	
-	@Override
-	public DataResult<List<JobAdvertDto>> getJobAdvertDto() {
-		return new SuccessDataResult<List<JobAdvertDto>>(this.jobAdvertDao.getJobAdvertDto());
-	}
-	
-	@Override
-	public DataResult<List<JobAdvertDto>> getJobAdvertDtoActiveAdvertsByDate() {
-		return new SuccessDataResult<List<JobAdvertDto>>(this.jobAdvertDao.getJobAdvertDtoActiveAdvertsByDate());
 	}
 	
 	@Override
 	public DataResult<JobAdvert> getByJobAdvertId(int jobAdvertId) {
 		return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.getByJobAdvertIdAndActive(jobAdvertId));
 	}
-	
-	@Override
-	public DataResult<List<JobAdvert>> getByActivityStatusIsFalseOrderByAdvertDateDesc() {
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsFalseOrderByAdvertDateDesc());
-	}
-	
-//	private Result CheckIfRepetition(JobAdvert jobAdvert) {
-//		if(jobAdvertDao.getAllByActivityStatusIsTrueAndPosition_PositionId(jobAdvert.getPosition().getPositionId()).stream().count() != 0) {
-//			return new ErrorResult("Bu pozisyonunda aktif iş ilanınız bulunmaktadır.");
-//		}
-//		return new SuccessResult();
-//	}
 	private Result CheckIfSalary(JobAdvert jobAdvert) {
 		if(jobAdvert.getMinSalary() > jobAdvert.getMaxSalary()) {
 			return new ErrorResult("Minimum maaş Maximum maaştan yüksek olamaz!");

@@ -44,7 +44,7 @@ public class Experience {
 
 	@Column(name="date_of_start")
 	@NotNull
-	private Date dateOfStart;
+	private LocalDate dateOfStart;
 	
 	@Column(name="quit_date")
 	private LocalDate quitDate;

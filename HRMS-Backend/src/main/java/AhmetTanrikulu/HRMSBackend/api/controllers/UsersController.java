@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -29,6 +30,11 @@ public class UsersController {
 	@GetMapping("getall")
 	public DataResult<List<User>> getAll(){
 		return this.userService.getAll();
+	}
+	
+	@GetMapping("getbyuserid")
+	public DataResult<User> getByUserId(@RequestParam int userId){
+		return this.userService.getByUserId(userId);
 	}
 	
 

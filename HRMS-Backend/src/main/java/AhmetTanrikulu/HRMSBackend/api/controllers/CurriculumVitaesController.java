@@ -88,10 +88,6 @@ public class CurriculumVitaesController {
 	public ResponseEntity<?> add(@Valid @RequestBody Ability ability) {
 		return ResponseEntity.ok(this.abilityService.add(ability));
 	}
-	@PostMapping("/api/cvs/abilities/addList")
-	public ResponseEntity<?> add(@RequestBody List<Ability> ability) {
-		return ResponseEntity.ok(this.abilityService.add(ability));
-	}
 	
 									//EDUCATİONS CONTROLLER	
 
@@ -102,7 +98,7 @@ public class CurriculumVitaesController {
 	
 	@GetMapping("/api/cvs/educations/getbyuserid")
 	public DataResult<List<Education>> getEducationsByUserId(int userId) {
-		return this.educationService.getAllByUserIdOrderByGraduationDateDesc(userId);
+		return this.educationService.getAllByUserIdOrderByGraduationDateAsc(userId);
 	}
 	
 	@PostMapping("/api/cvs/eduations/add")

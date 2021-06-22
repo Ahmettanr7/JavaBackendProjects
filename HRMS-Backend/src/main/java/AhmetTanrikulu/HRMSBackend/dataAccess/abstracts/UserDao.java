@@ -8,4 +8,5 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.User;
 public interface UserDao extends JpaRepository<User, Integer>{
 	User findByEmail(String email);
 	
+	User getByUserId(int userId);	
 }

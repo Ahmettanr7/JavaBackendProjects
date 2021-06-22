@@ -36,6 +36,12 @@ public class EducationManager implements EducationService{
 		 this.educationDao.save(education);
 		 return new SuccessResult("Eğitim bilgisi eklendi");
 	}
+	
+	@Override
+	public Result deleteByEducationId(int educationId) {
+		this.educationDao.deleteById(educationId);
+		return new SuccessResult("Eğitim bilgisi silindi");
+	}
 
 	@Override
 	public DataResult<List<Education>> getAll() {
@@ -43,8 +49,8 @@ public class EducationManager implements EducationService{
 	}
 
 	@Override
-	public DataResult<List<Education>> getAllByUserIdOrderByGraduationDateDesc(int userId) {
-		return new SuccessDataResult<List<Education>>(this.educationDao.getAllByUserIdOrderByGraduationDateDesc(userId));
+	public DataResult<List<Education>> getAllByUserIdOrderByGraduationDateAsc(int userId) {
+		return new SuccessDataResult<List<Education>>(this.educationDao.getAllByUserIdOrderByGraduationDateAsc(userId));
 	}
 
 }

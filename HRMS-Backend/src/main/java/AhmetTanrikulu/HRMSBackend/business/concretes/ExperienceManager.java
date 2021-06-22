@@ -38,6 +38,12 @@ public class ExperienceManager implements ExperienceService{
 		this.experienceDao.save(experience); 
 		return new SuccessResult("Tecrübeniz eklendi");
 	}
+	
+	@Override
+	public Result delete(int id) {
+		this.experienceDao.deleteById(id);
+		return new SuccessResult("Tecrübeniz silindi");
+	}
 
 	@Override
 	public DataResult<List<Experience>> getAll() {
@@ -47,8 +53,9 @@ public class ExperienceManager implements ExperienceService{
 
 	@Override
 	public DataResult<List<Experience>> getAllByUserIdOrderByQuitDate(int userId) {
-		return new SuccessDataResult<List<Experience>>(this.experienceDao.getAllByUserIdOrderByQuitDateDesc(userId));
+		return new SuccessDataResult<List<Experience>>(this.experienceDao.getAllByUserIdOrderByQuitDateAsc(userId));
 	}
+
 
 
 

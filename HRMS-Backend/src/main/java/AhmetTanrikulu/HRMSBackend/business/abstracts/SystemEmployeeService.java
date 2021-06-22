@@ -16,7 +16,6 @@ public interface SystemEmployeeService {
 	DataResult<SystemEmployee> getByEmail(String email);
 	
 	Result add(SystemEmployee systemEmployee);
-	Result update(SystemEmployee systemEmployee);
 	Result delete(SystemEmployee systemEmployee);
 
 }

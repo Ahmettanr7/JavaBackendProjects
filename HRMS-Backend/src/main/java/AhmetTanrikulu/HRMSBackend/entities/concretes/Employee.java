@@ -24,9 +24,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="employees")
-@AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","singleInformations","abilities","educations","experiences","languages","favorites"})
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","singleInformations","abilities","educations","experiences","languages","images"})
+@AllArgsConstructor
 public class Employee extends User{
 	
 
@@ -79,5 +79,7 @@ public class Employee extends User{
 	
 	@OneToMany(mappedBy = "employee")
 	@JsonIgnore
-	private List<Image> images;
+	private List<Favorite> favorites;
+	
+	
  }

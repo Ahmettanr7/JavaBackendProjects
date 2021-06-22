@@ -50,6 +50,11 @@ public class EmployeesController {
 		return this.employeeService.getCurriculumVitaeByUserId(userId);
 	}
 	
+	@GetMapping("getbyuserid")
+	public DataResult<Employee> getByUserId(@RequestParam int userId){
+		return this.employeeService.getByUserId(userId);
+	}
+	
 	@PostMapping("add")
 	public ResponseEntity<?> add(@Valid @RequestBody Employee employee) {
 		return ResponseEntity.ok(this.employeeService.add(employee));

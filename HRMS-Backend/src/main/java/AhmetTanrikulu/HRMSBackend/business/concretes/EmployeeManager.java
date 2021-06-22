@@ -82,7 +82,7 @@ public class EmployeeManager implements EmployeeService{
 		CurriculumVitaeDto cv = new CurriculumVitaeDto();
 		
 		cv.employee = this.getByUserId(userId).getData();
-		cv.educations = this.educationService.getAllByUserIdOrderByGraduationDateDesc(userId).getData();
+		cv.educations = this.educationService.getAllByUserIdOrderByGraduationDateAsc(userId).getData();
 		cv.experiences = this.experienceService.getAllByUserIdOrderByQuitDate(userId).getData();
 		cv.abilities = this.abilityService.getAllByUserId(userId).getData();
 		cv.languages = this.languageService.getAllByUserId(userId).getData();

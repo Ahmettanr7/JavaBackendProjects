@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import AhmetTanrikulu.HRMSBackend.entities.concretes.Education;
 
 public interface EducationDao extends JpaRepository<Education, Integer>{
-	List<Education> getAllByUserIdOrderByGraduationDateDesc(int userId);
+	List<Education> getAllByUserIdOrderByGraduationDateAsc(int userId);
 
 }

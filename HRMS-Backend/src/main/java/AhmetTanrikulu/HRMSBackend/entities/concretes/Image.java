@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -17,16 +20,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","users"})
 public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-    
-   // @Column(name="user_id")
-	//@NotNull
-	//private int userId;
+    @Column(name = "user_id")
+    private int userId;
 
     @Column(name="name")
 	private String name;
@@ -38,9 +37,12 @@ public class Image {
 	private String imageId;
 	
 	@Column(name="date_of_creation")
-	private Date dateOfCreation;
+	private LocalDate dateOfCreation;
 	
-	@ManyToOne()
-	@JoinColumn(name = "user_id")
-	private User user;
+	@OneToMany(mappedBy = "image")
+	private List<User> users;
+	
+//	@ManyToOne()
+//	@JoinColumn(name = "user_id")
+//	private User user;
 }

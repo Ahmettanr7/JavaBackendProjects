@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,9 +52,10 @@ public class AbilitiesController {
 	public ResponseEntity<?> add(@Valid @RequestBody Ability ability) {
 		return ResponseEntity.ok(this.abilityService.add(ability));
 	}
-	@PostMapping("addList")
-	public ResponseEntity<?> add(@RequestBody List<Ability> ability) {
-		return ResponseEntity.ok(this.abilityService.add(ability));
+	
+	@PostMapping("delete")
+	public ResponseEntity<?> deleteById(@RequestParam int id) {
+		return ResponseEntity.ok(this.abilityService.delete(id));
 	}
 	
 	

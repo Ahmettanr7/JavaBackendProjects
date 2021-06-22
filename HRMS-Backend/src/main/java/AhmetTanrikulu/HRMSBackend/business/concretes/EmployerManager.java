@@ -50,8 +50,8 @@ public class EmployerManager implements EmployerService{
 	}
 
 	@Override
-	public DataResult<Optional<Employer>> getByUserId(int id) {
-		return new SuccessDataResult <Optional<Employer>>(this.employerDao.findById(id),"Belirtilen id numarasına göre getirildi");
+	public DataResult<Employer> getByUserId(int userId) {
+		return new SuccessDataResult <Employer>(this.employerDao.getByUserId(userId),"Belirtilen id numarasına göre getirildi");
 	}
 
 	@Override

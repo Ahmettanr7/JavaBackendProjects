@@ -30,12 +30,6 @@ public class AbilityManager implements AbilityService{
 	}
 
 	@Override
-	public Result add(List<Ability> ability) {
-		 this.abilityDao.saveAll(ability);
-		 return new SuccessResult("Yetenek eklendi");
-	}
-
-	@Override
 	public DataResult<List<Ability>> getAll() {
 		return new SuccessDataResult<List<Ability>>(this.abilityDao.findAll(),"Yetenekler getirildi");
 	}
@@ -43,6 +37,12 @@ public class AbilityManager implements AbilityService{
 	@Override
 	public DataResult<List<Ability>> getAllByUserId(int user_id) {
 		return new SuccessDataResult<List<Ability>>(this.abilityDao.getAllByUserId(user_id));
+	}
+
+	@Override
+	public Result delete(int id) {
+		this.abilityDao.deleteById(id);
+		return new SuccessResult("Yetenek silindi");
 	}
 
 }

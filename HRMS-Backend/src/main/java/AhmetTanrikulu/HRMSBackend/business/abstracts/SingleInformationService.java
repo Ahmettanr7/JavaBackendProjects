@@ -10,6 +10,8 @@ public interface SingleInformationService {
 	
 	Result add(SingleInformation singleInformation);
 	
+	Result delete(int id);
+	
 	DataResult<List<SingleInformation>> getAll();
 	
 	DataResult<SingleInformation> getByUserId(int userId);

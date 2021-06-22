@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(name="employers")
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdverts","images"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdverts"})
 public class Employer extends User{
 	
 	
@@ -51,8 +52,7 @@ public class Employer extends User{
 	private LocalDate creationDate;
 	
 	@OneToMany(mappedBy = "employer")
+	@JsonIgnore
 	private List<JobAdvert> jobAdverts;
 	
-	@OneToMany(mappedBy = "employer")
-	private List<Image> images; 
 	}
