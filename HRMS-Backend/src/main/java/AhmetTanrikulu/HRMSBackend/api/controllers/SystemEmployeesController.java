@@ -60,6 +60,11 @@ public class SystemEmployeesController {
 		return ResponseEntity.ok(this.systemEmployeeService.add(systemEmployee));
 	}
 	
+	@PostMapping(value="update")
+	public ResponseEntity<?> update(@Valid @RequestBody SystemEmployee systemEmployee) {
+		return ResponseEntity.ok(this.systemEmployeeService.update(systemEmployee));
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){

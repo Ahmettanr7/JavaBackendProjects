@@ -75,6 +75,11 @@ public class JobAdvertsController {
 		return this.jobAdvertService.getByJobAdvertId(jobAdvertId);
 	}
 	
+	@GetMapping("getAllByPlaceAndTimeAndActive")
+	public DataResult<List<JobAdvert>> getAllByPlaceAndTimeAndActive(@RequestParam int positionId, int cityId, int placeTypeId, int timeTypeId){
+		return this.jobAdvertService.getAllByPositionIdAndCityIdAndPlaceTypeIdAndTimeTypeIdAndActivityStatusIsTrueOrderByAdvertDateDesc(positionId,cityId,placeTypeId,timeTypeId);
+	}
+	
 	@PostMapping("add")
 	public ResponseEntity<?> add(@Valid @RequestBody JobAdvert jobAdvert) {
 		return ResponseEntity.ok(this.jobAdvertService.add(jobAdvert));

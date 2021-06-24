@@ -17,6 +17,8 @@ public interface JobAdvertService {
 	
 	DataResult<List<JobAdvert>> getAllByCity_CityName(String cityName);
 	DataResult<List<JobAdvert>> getAllByCity_CityId(int cityId);
+	
+	DataResult<List<JobAdvert>> getAllByPositionIdAndCityIdAndPlaceTypeIdAndTimeTypeIdAndActivityStatusIsTrueOrderByAdvertDateDesc(int positionId, int cityId, int placeTypeId, int timeTypeId);
  	
 	Result add(JobAdvert jobAdvert);
 	Result closeAdvert(int jobAdvertId);

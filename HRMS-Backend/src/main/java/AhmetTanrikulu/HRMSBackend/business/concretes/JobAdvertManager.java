@@ -120,12 +120,23 @@ public class JobAdvertManager implements JobAdvertService{
 	public DataResult<JobAdvert> getByJobAdvertId(int jobAdvertId) {
 		return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.getByJobAdvertIdAndActive(jobAdvertId));
 	}
+	
+	@Override
+	public DataResult<List<JobAdvert>> getAllByPositionIdAndCityIdAndPlaceTypeIdAndTimeTypeIdAndActivityStatusIsTrueOrderByAdvertDateDesc
+	(int positionId, int cityId, int placeTypeId,int timeTypeId) {
+		return new SuccessDataResult<List<JobAdvert>>
+(this.jobAdvertDao.getAllByPositionIdAndCityIdAndPlaceTypeIdAndTimeTypeIdAndActivityStatusIsTrueOrderByAdvertDateDesc(positionId, cityId, placeTypeId, timeTypeId));
+	}
+	
+	
 	private Result CheckIfSalary(JobAdvert jobAdvert) {
 		if(jobAdvert.getMinSalary() > jobAdvert.getMaxSalary()) {
 			return new ErrorResult("Minimum maaş Maximum maaştan yüksek olamaz!");
 		}
 		return new SuccessResult();
 	}
+
+	
 
 }
 

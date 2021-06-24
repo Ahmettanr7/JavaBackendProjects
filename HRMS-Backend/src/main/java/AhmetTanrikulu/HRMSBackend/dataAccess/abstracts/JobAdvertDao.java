@@ -28,4 +28,9 @@ public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer>{
 	@Query("From JobAdvert Where position.positionId = :positionId and activityStatus = 1")
 	List<JobAdvert> getAllByActivityStatusIsTrueAndPosition_PositionId(int positionId);
 	
+	//forPlaceAndTime
+	List<JobAdvert> getAllByPositionIdAndCityIdAndPlaceTypeIdAndTimeTypeIdAndActivityStatusIsTrueOrderByAdvertDateDesc(int positionId, int cityId, int placeTypeId, int timeTypeId);
+	
+	
+	
 }

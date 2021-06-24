@@ -64,6 +64,29 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 		return new SuccessResult("Sistem çalışanı olarak kayıt olundu.");
 		
 	}
+	
+	@Override
+	public Result update(SystemEmployee systemEmployee) {
+		SystemEmployee sys = this.systemEmployeeDao.getByUserId(systemEmployee.getUserId());
+		if(sys != null) {
+			
+		sys.setFirstName(systemEmployee.getFirstName());
+			
+		sys.setLastName(systemEmployee.getLastName());
+			
+		sys.setEmail(systemEmployee.getEmail());
+			
+		sys.setImageUrl(systemEmployee.getImageUrl());
+			
+		sys.setPhoneNumber(systemEmployee.getPhoneNumber());
+			
+		sys.setPassword(systemEmployee.getPassword());
+			
+			this.systemEmployeeDao.save(sys);
+		return new SuccessResult("Güncelleme başarılı");
+		}
+		return new ErrorResult("Güncelleme başarısız");
+	}
 
 	@Override
 	public Result delete(SystemEmployee systemEmployee) {
@@ -89,6 +112,8 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 	     }
 	     return new SuccessResult();
 	     }
+
+	
 
 	
 
