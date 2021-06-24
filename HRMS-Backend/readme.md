@@ -1,48 +1,58 @@
- # HRMS-Backend (Human Resource Management System)
-
-#Doğrulama işlemleri için sahte servisler oluşturuldu.
-
-#İş Arayanlar sisteme kayıt olabilir
-
- Kabul kriterleri:
-
-  * Kayıt sırasında kullanıcıdan ad, soyad, tcno, doğum yılı, e-Posta, şifre bilgileri istenir.
-  * Tüm alanlar zorunludur. Kullanıcı bilgilendirilir.
-  * Mernis (sahte) doğrulaması yapılarak sisteme kayıt gerçekleştirilir.
-  * Doğrulama geçerli değilse kullanıcı bilgilendirilir.
-  * Daha önce kayıtlı bir e-posta veya tcno var ise kayıt gerçekleşmez. Kullanıcı bilgilendirilir.
-  * Kayıdın gerçekleşmesi için e-posta doğrulaması gerekir.
-
-#İş Arayanlar sisteme kayıt olabilir
-
-  Kabul Krterleri:
+ # UML DİAGRAM (will be updated)
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1623249346/newUmlDiagram_gh0qql.png)
+ 
+ # OVERVİEW
+ # Welcome Page
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1623249345/welcome2_ozbykv.png)
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1623249344/welcome3_xcysef.png)
+ 
+ # Job Advert Page
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500152/jobSeekerPage_cuhkkf.png)
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500365/jobSeekerPAge2_xxu8et.png)
+ 
+  # Job Advert Detail Page
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500152/advertDetailPage1_p1lgsk.png)
+ 
+  ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500154/advertDetailPage2_cwoio8.png)
+ 
+ 
+ # Register Pages
   
-   * Kayıt sırasında kullanıcıdan şirket adı, web sitesi, e-posta, telefon, şifre ve vergi numarası bilgileri istenir.
-    Burada amaç sisteme şirket olmayanların katılmasını engellemektir.
-   * Tüm alanlar zorunludur. Kullanıcı bilgilendirilir.
-   * Mernis (sahte) doğrulaması yapılarak sisteme kayıt gerçekleştirilir.
-   * Şirket kayıtları iki şekilde doğrulanır. Kayıdın gerçekleşmesi için e-posta doğrulaması gerekir. HRMS personelinin onayı gerekmektedir.
-   * Daha önce kayıtlı bir e-posta ve ya vergi numarası var ise kayıt gerçekleşmez. Kullanıcı bilgilendirilir.
-   
-#Sisteme genel iş pozisyonu isimleri eklenebilir
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500557/employeeRegister_lj2wkl.png)
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500558/employerRegister_aq3zwb.png)
+ 
+ # Login Page
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500556/login_mkjrsh.png)
+ 
+ # Job Advert Add
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500152/jobAdvertAdd_wdb7jj.png)
+ 
+  # Management Panel For Employer Page
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500152/employerManagement_bkfj1j.png)
+ 
+  # Management Panel For Admin Page
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500152/adminJobAdvertManagement_vvgnbo.png)
+ 
+  # job Sekeer Profil And Cv Preview
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500153/jobSekeerProfilAndCvPreview_yeerem.png)
+ 
+   # Saved Job Adverts
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500153/savedJobAdverts_wilyjl.png)
+ 
+  # Cv Add And Update
+ 
+ ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624500152/CvAddAndUpdate_ttmr5b.png)
 
-  Kabul kriteri:
-  
-    * Bu pozisyonlar tekrar edemez. Kullanıcı uyarılır.
- 
- #İş verenler listelenebilir.
-
- #İş arayanlar listelenebilir.
-
- #İş pozisyonları listelenebilir.
- 
- 
- # İş verenler sisteme iş ilanı ekleyebilir.
- 
- # Sistemdeki tüm aktif iş ilanları listelenebilir.
- 
- # Sistemdeki tüm aktif iş ilanları tarihe göre listelenebilir.
- 
- # Sistemde bir firmaya ait tüm aktif iş ilanları listelenebilir.
- 
- # İş verenler sistemdeki bir ilanı kapatabilir.
+# HRMS is the most advanced project among these projects.
+For Frontend and screenshots of HRMS [HRMS-Frontend](https://github.com/Ahmettanr7/HRMS-Frontend)
+        
