@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","users"})
 public class Image {
 
     @Id
@@ -38,11 +36,4 @@ public class Image {
 	
 	@Column(name="date_of_creation")
 	private LocalDate dateOfCreation;
-	
-	@OneToMany(mappedBy = "image")
-	private List<User> users;
-	
-//	@ManyToOne()
-//	@JoinColumn(name = "user_id")
-//	private User user;
 }

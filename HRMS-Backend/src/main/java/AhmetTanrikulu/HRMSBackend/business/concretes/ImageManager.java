@@ -1,7 +1,6 @@
 package AhmetTanrikulu.HRMSBackend.business.concretes;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import AhmetTanrikulu.HRMSBackend.business.abstracts.ImageService;
-import AhmetTanrikulu.HRMSBackend.business.abstracts.UserService;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.DataResult;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.Result;
 import AhmetTanrikulu.HRMSBackend.core.utilities.results.SuccessDataResult;
@@ -47,9 +45,10 @@ public class ImageManager implements ImageService {
 		LocalDate now = LocalDate.now();
 		image.setDateOfCreation(now);
 		this.imageDao.save(image);
-//		var user = this.userDao.getByUserId(image.getUserId());
-//		user.image.setUserId(image.getUserId());
+		User user = this.userDao.getByUserId(image.getUserId());
+		user.setImageUrl(image.getImageUrl());
 		return new SuccessResult("Başarıyla eklendi");
+		
 	}
 
 	@Override
