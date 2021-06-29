@@ -2,7 +2,6 @@ package AhmetTanrikulu.HRMSBackend.business.concretes;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,6 +77,7 @@ public class EmployerManager implements EmployerService{
 
 	@Override
 	public Result update(Employer employer) {
+		
 		this.employerDao.save(employer);
 		return new SuccessResult("İşveren güncellendi");
 		
