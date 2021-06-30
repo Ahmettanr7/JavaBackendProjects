@@ -9,6 +9,7 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.JobAdvert;
 public interface JobAdvertService {
 	
 	DataResult<List<JobAdvert>> getAll();
+	DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDesc(int pageNo, int pageSize);
 	DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDesc();
 	DataResult<JobAdvert> getByJobAdvertId(int jobAdvertId);
 	

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -90,10 +92,16 @@ public class JobAdvertManager implements JobAdvertService{
 		Sort sort =Sort.by(Sort.Direction.DESC,"advertDate");
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll(sort),"İlanlar tablosunun bütün verileri listelendi");
 	}
-
+	
 	@Override
 	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDesc() {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsTrueOrderByAdvertDateDesc(),"İlanlar tablosunun aktif bütün ilanları tarihi azalan sırayla listelendi");
+	}
+
+	@Override
+	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDesc(int pageNo,int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByActivityStatusIsTrueOrderByAdvertDateDesc(pageable),"İlanlar tablosunun aktif bütün ilanları tarihi azalan sırayla listelendi");
 	}
 	
 	@Override

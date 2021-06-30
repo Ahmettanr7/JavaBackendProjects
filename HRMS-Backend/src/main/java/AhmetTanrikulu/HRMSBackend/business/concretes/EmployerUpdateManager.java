@@ -36,7 +36,7 @@ public class EmployerUpdateManager implements EmployerUpdateService{
 
 	@Override
 	public DataResult<List<EmployerUpdate>> getByUserId(int userId) {
-		return new SuccessDataResult<List<EmployerUpdate>>(this.employerUpdateDao.getByUserIdOrderByUpdateDateDesc(userId));
+		return new SuccessDataResult<List<EmployerUpdate>>(this.employerUpdateDao.getByUserIdOrderByUpdateIdDesc(userId));
 	}
 
 	@Override

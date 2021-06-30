@@ -8,7 +8,7 @@ import AhmetTanrikulu.HRMSBackend.entities.concretes.EmployerUpdate;
 
 public interface EmployerUpdateDao extends JpaRepository<EmployerUpdate, Integer>{
 	
-	List<EmployerUpdate> getByUserIdOrderByUpdateDateDesc(int userId);
+	List<EmployerUpdate> getByUserIdOrderByUpdateIdDesc(int userId);
 	
 	EmployerUpdate getByUpdateId(int updateId);
 	

@@ -46,7 +46,12 @@ public class JobAdvertsController {
 	}
 	
 	@GetMapping("getActiviteAdvertsByAdvertDateDesc")
-	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDesc(){
+	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDesc(@RequestParam int pageNo,@RequestParam int pageSize){
+		return this.jobAdvertService.getActiviteAdvertsByAdvertDateDesc(pageNo,pageSize);
+	}
+	
+	@GetMapping("getActiviteAdvertsByAdvertDateDescc")
+	public DataResult<List<JobAdvert>> getActiviteAdvertsByAdvertDateDescc(){
 		return this.jobAdvertService.getActiviteAdvertsByAdvertDateDesc();
 	}
 	
