@@ -1,3 +1,6 @@
+ # HRMS is the most advanced project among these projects.
+For Frontend and screenshots of HRMS [HRMS-Frontend](https://github.com/Ahmettanr7/HRMS-Frontend)
+ 
  # UML DİAGRAM (will be updated)
  
  ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1623249346/newUmlDiagram_gh0qql.png)
@@ -59,6 +62,5 @@
  ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624962169/employerUpdate1_uhqtea.png)
  ![alt text](https://res.cloudinary.com/ahmettanrikulu/image/upload/v1624962167/employerUpdate2_bu54af.png)
 
-# HRMS is the most advanced project among these projects.
-For Frontend and screenshots of HRMS [HRMS-Frontend](https://github.com/Ahmettanr7/HRMS-Frontend)
+
         
